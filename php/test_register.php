@@ -29,7 +29,7 @@
     // See: https://stackoverflow.com/a/98786
     $password_too_short = $has_password ? (strlen($password) < MIN_LENGTH_PASSWORD) : false;
 
-    $confirm_password_no_match = ($has_password && $has_confirm_password) ? ($password === $confirm_password) : false;
+    $confirm_password_matches = ($has_password && $has_confirm_password) ? ($password === $confirm_password) : false;
 
     if(DEBUG_MODE)
     {
@@ -73,7 +73,7 @@
     {
       $errors['confirm_password'] = 'Please enter your password again.';
     }
-    else if($confirm_password_no_match)
+    else if(!$confirm_password_matches)
     {
       $errors['confirm_password'] = 'Your password and confirm password fields do not match.';
     }
