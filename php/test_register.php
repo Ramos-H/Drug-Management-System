@@ -29,7 +29,7 @@
     // See: https://stackoverflow.com/a/98786
     $password_too_short = $has_password ? (strlen($password) < MIN_LENGTH_PASSWORD) : false;
 
-    $confirm_password_no_match = ($has_password && $has_confirm_password) ? ($password === $confirm_password) : false;
+    $confirm_password_matches = ($has_password && $has_confirm_password) ? ($password === $confirm_password) : false;
 
     if(DEBUG_MODE)
     {
@@ -43,6 +43,10 @@
       echo sprintf('Username: %s<br>', ($has_username) ? $username : 'none');
       echo sprintf('Password: %s<br>', ($has_password) ? $password : 'none');
       echo sprintf('Confirm Password: %s<br>', ($has_confirm_password) ? $confirm_password : 'none');
+      echo '<br>';
+      echo sprintf('Username too long: %s<br>', bool_to_str($username_too_long));
+      echo sprintf('Password too short: %s<br>', bool_to_str($password_too_short));
+      echo sprintf('Confirm password matches: %s<br>', bool_to_str($confirm_password_matches));
       echo '<br>';
     }
 
@@ -73,7 +77,7 @@
     {
       $errors['confirm_password'] = 'Please enter your password again.';
     }
-    else if($confirm_password_no_match)
+    else if(!$confirm_password_matches)
     {
       $errors['confirm_password'] = 'Your password and confirm password fields do not match.';
     }
