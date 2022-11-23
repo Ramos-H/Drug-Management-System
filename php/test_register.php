@@ -44,6 +44,10 @@
       echo sprintf('Password: %s<br>', ($has_password) ? $password : 'none');
       echo sprintf('Confirm Password: %s<br>', ($has_confirm_password) ? $confirm_password : 'none');
       echo '<br>';
+      echo sprintf('Username too long: %s<br>', bool_to_str($username_too_long));
+      echo sprintf('Password too short: %s<br>', bool_to_str($password_too_short));
+      echo sprintf('Confirm password matches: %s<br>', bool_to_str($confirm_password_matches));
+      echo '<br>';
     }
 
     // Error reporting
