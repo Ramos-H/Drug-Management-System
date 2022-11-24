@@ -20,7 +20,6 @@
     $has_submitted = !check_str_empty($submit_value);
     $has_username = !check_str_empty($username);
     $has_password = !check_str_empty($password);
-    echo 'Hello from login';
 
     if(DEBUG_MODE)
     {
