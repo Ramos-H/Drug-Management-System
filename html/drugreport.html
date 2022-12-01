@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- website title -->
+    <title>Drug Report</title>
+
+    <!-- for proper rendering -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- bootstrap, js, and jquery -->
+	<script src="script.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>  
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  	<!-- external css --> 
+  	<link href="../css/drugreport-style.css" rel="stylesheet">
+
+</head>
+
+<!-- contents of the web page --> 
+<body>
+    <center>
+    <div class="col-sm-4" id="titlebox">
+        <div class="d-flex justify-content-center" style = "background-color:#2176FF;">
+            <p id="titleinbox">Drug Management System - Inventory Report</p>
+        </div>
+    </div>
+    <p id="reportsummary">Report Summary</p>
+    </center>
+
+    <div class="container">
+        <div class = "row">
+            <div class="col-md-4">
+                <p>3 Drugs are expiring:</p>
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                      <tr>
+                        <th>Drug Name</th>
+                        <th>Expiration Date</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tablebody">
+                      <tr>
+                        <td>Paracetamol</td>
+                        <td>12/5/2022</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>Ascorbic Acid</td>
+                        <td>12/7/2023</td>
+                        <td>95</td>
+                      </tr>
+                      <tr>
+                        <td>Loperamide Hydrochloride</td>
+                        <td>2/5/2023</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="col-md-4">
+                <p>3 Drugs are expiring:</p>
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                      <tr>
+                        <th>Drug Name</th>
+                        <th>Expiration Date</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tablebody">
+                      <tr>
+                        <td>Paracetamol</td>
+                        <td>12/5/2022</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>Ascorbic Acid</td>
+                        <td>12/7/2023</td>
+                        <td>95</td>
+                      </tr>
+                      <tr>
+                        <td>Loperamide Hydrochloride</td>
+                        <td>2/5/2023</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="col-md-4">
+                <p>All Drugs labeled Tablet:</p>
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                      <tr>
+                        <th>Drug Name</th>
+                        <th>Drug Type</th>
+                        <th>Drug Strength</th>
+                        <th>Drug Unit</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tablebody">
+                      <tr>
+                        <td>Paracetamol</td>
+                        <td>Tablet</td>
+                        <td>500</td>
+                        <td>mg</td>
+                      </tr>
+                      <tr>
+                        <td>Ascorbic Acid</td>
+                        <td>Tablet</td>
+                        <td>100</td>
+                        <td>mg</td>
+                      </tr>
+                      <tr>
+                        <td>Loperamide Hydrochloride</td>
+                        <td>Tablet</td>
+                        <td>2</td>
+                        <td>mg</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+
+        <div class = "row">
+            <div class="col-md-4">
+                <p>2 Drugs are running out:</p>
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                      <tr>
+                        <th>Drug Name</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tablebody">
+                      <tr>
+                        <td>Paracetamol</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>Ascorbic Acid</td>
+                        <td>95</td>
+                      </tr>
+                      <tr>
+                        <td>Loperamide Hydrochloride</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+
+            <div class="col-md-4">
+                <p>2 Drugs are blahblah out:</p>
+                <table class="table table-bordered">
+                    <thead class="tablehead">
+                      <tr>
+                        <th>Drug Name</th>
+                        <th>Quantity</th>
+                      </tr>
+                    </thead>
+                    <tbody class="tablebody">
+                      <tr>
+                        <td>Paracetamol</td>
+                        <td>25</td>
+                      </tr>
+                      <tr>
+                        <td>Ascorbic Acid</td>
+                        <td>95</td>
+                      </tr>
+                      <tr>
+                        <td>Loperamide Hydrochloride</td>
+                        <td>10</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
