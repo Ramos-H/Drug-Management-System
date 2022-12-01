@@ -49,6 +49,7 @@
       if($user_id > -1)
       {
         $_SESSION['user_id'] = $user_id;
+        header('Location: test_main.php');
       }
       else
       {
