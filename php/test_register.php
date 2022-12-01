@@ -87,6 +87,7 @@
      && !$username_too_long && !$password_too_short && $confirm_password_matches)
     {
       insert_new_user($username, $password);
+      header('Location: test_login.php');
     }
   ?>
 
