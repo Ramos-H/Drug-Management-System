@@ -87,10 +87,10 @@
      && !$username_too_long && !$password_too_short && $confirm_password_matches)
     {
       insert_new_user($username, $password);
-      echo 'Inserted new user. <br>';
     }
   ?>
 
+  <a href="test_login.php">Login</a>
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <label for="username">Username</label><br>
     <input type="text" name="username" id="username"><br>

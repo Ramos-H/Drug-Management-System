@@ -57,6 +57,7 @@
     }
   ?>
 
+  <a href="test_register.php">Register</a>
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
     <label for="username">Username</label><br>
     <input type="text" name="username" id="username"><br>
