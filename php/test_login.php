@@ -12,6 +12,9 @@
   <?php
     require_once 'utils.php';
     require_once 'constants.php';
+    require_once 'database.php';
+
+    session_start();
 
     $submit_value = $_POST['submit'] ?? null;
     $username = isset($_POST['username']) ? trim($_POST['username']) : null;
@@ -35,10 +38,23 @@
     }
 
     // Error reporting
-    $errors = array('username' => '', 'password' => '');
+    $errors = array('username' => '', 'password' => '', 'verify' => '');
 
     if(!$has_username) { $errors['username'] = 'Please enter your username.'; }
     if(!$has_password) { $errors['password'] = 'Please enter your password.'; }
+
+    if($has_submitted && $has_username && $has_password)
+    {
+      $user_id = verify_credentials($username, $password);
+      if($user_id > -1)
+      {
+        $_SESSION['user_id'] = $user_id;
+      }
+      else
+      {
+        $errors['verify'] = 'Your username or password is incorrect.';
+      }
+    }
   ?>
 
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
@@ -50,6 +66,7 @@
     <input type="text" name="password" id="password"><br>
     <?php if($has_submitted && !check_str_empty($errors['password'])) { echo sprintf('<span style="color: red">%s</span><br>', $errors['password']);} ?>
     
+    <?php if($has_submitted && !check_str_empty($errors['verify'])) { echo sprintf('<span style="color: red">%s</span><br>', $errors['verify']);} ?>
     <button type="submit" name="submit" value="login">Login</button>
   </form>
 </body>

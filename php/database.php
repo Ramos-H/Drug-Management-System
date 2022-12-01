@@ -22,4 +22,37 @@
     $prepped_stmt = $db->prepare($statement);
     return $prepped_stmt->execute([$username, $password]);
   }
+  
+  function check_user_exists($username)
+  {
+    global $db;
+    $statement = 'SELECT USERNAME FROM USERS WHERE USERNAME = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$username]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll();
+    return count($result) > 0;
+  }
+  
+  function verify_credentials($username, $password)
+  {
+    if(!check_user_exists($username)) { return false; }
+
+    global $db;
+    $statement = 'SELECT * FROM USERS WHERE USERNAME = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$username]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+
+    foreach ($result as $row) 
+    {
+      if($row['PASSWORD'] === $password)
+      {
+        return intval($row['USER_NO']);
+      }
+    }
+
+    return -1;
+  }
 ?>
