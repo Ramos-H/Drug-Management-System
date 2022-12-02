@@ -10,59 +10,62 @@ ion-icon {
     
 }
 
+body{
+    background-color: #D8EEFD;
+}
+
 .btn{
     padding: 5px 40px;
 }
 
-#btn1{
+#goBackBtn{
     padding: 5px 50px;
-    background-color:#004AAD;
+    background-color:#F79824;
     border-width: 0px;
 }
 
-#btn1:hover{
-    background:#012c64
+#goBackBtn:hover{
+    background:#f1cd3b
 }
 
-#btn2{
+#registerBtn, #loginbtn{
     padding: 5px 50px;
-    background-color:#ffde59;
+    background-color:#2176FF;
     border-width: 0px;
-    color: black;
 }
 
-#btn2:hover{
+#registerBtn:hover, #loginBtn:hover{
     background:#f1cd3b
 }
 
 
-#view{
+#viewBtn{
     padding: 5px 10px;
-    background-color:#004AAD;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
-#update{
+#updateBtn{
     padding: 5px 10px;
-    background-color:#008037;
+    background-color:#F79824;
     border-width: 0px;
 }
 
-#delete{
+#deleteBtn{
     padding: 5px 10px;
     background-color:#FF1616;
     border-width: 0px;
 }
 
-#add{
+#addBtn{
     padding: 5px 35px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
-#generateReport{
+#generateReportBtn{
     padding: 5px 35px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
@@ -79,13 +82,13 @@ ion-icon {
 }
 
 #tableData{
-    background-color:#ECE3FF;
+    background-color:#f1cd3b;
 }
 
 #tableRows{
-    background-color: #BB99FF;
+    background-color: #2176FF;
 }
 
 #genericName{
-    background-color: #DECDFF;
+    background-color: #f1cd3b;
 }
