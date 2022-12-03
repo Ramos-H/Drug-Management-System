@@ -74,6 +74,227 @@
    
 
 </div>
+<!-- add drug modal -->
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header" >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">Add New Drug</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col">
+            <label for="drug-mneumonic" class="col-form-label">Drug Mneumonic</label>
+            <input type="text" class="form-control" id="drug-mneumonic">
+          </div>
+          <div class="col">
+            <label for="drug-maker" class="col-form-label">Drug Manufacturer</label>
+            <input type="text" class="form-control" id="drug-maker">
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="generic-name" class="col-form-label">Generic Name</label>
+              <input type="text" class="form-control" id="generic-name">
+          </div>
+          <div class="col">
+            <label for="date-manufactured" class="col-form-label">Date Manufactured</label>
+            <div class="input-group date" id="datepicker">
+              <input type="text" class="form-control" id="date"/>
+                <span class="input-group-append">
+                  <span class="input-group-text bg-light d-block">
+                    <i class="fa fa-calendar"></i>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="brand-name" class="col-form-label">Brand Name</label>
+            <input type="text" class="form-control" id="brand-name">
+          </div>
+          <div class="col">
+            <label for="drug-ordered" class="col-form-label">Drug Ordered</label>
+            <input type="text" class="form-control" id="date-ordered">
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="drug-synonym" class="col-form-label">Drug Synonym</label>
+            <input type="text" class="form-control" id="drug-synonym">
+          </div>
+          <div class="col">
+            <label for="expire" class="col-form-label">Expires on</label>
+            <input type="text" class="form-control" id="expire">
+          </div>
+          </div>
+        </form>
+
+
+
+      </div>
+
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Cancel</button>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col">
+            <button type="button" class="btn btn-primary ">Confirm New Drug</button>
+          </div>
+        </div>   
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- view drug modal -->
+<div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header" >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">About This Drug</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col">
+            <label for="drug-mneumonic" class="col-form-label">Drug Mneumonic</label>
+            <input type="text" class="form-control" id="drug-mneumonic" value="Paracetamol" readonly>
+          </div>
+          <div class="col">
+            <label for="drug-maker" class="col-form-label">Drug Manufacturer</label>
+            <input type="text" class="form-control" id="drug-maker" value="Watsons" readonly>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="generic-name" class="col-form-label">Generic Name</label>
+              <input type="text" class="form-control" id="generic-name" value="Acetaminophen" readonly>
+          </div>
+          <div class="col">
+            <label for="date-manufactured" class="col-form-label">Date Manufactured</label>
+            <input type="text" class="form-control" id="date" value="11/17/2022" readonly>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="brand-name" class="col-form-label">Brand Name</label>
+            <input type="text" class="form-control" id="brand-name" value="Biogesic" readonly>
+          </div>
+          <div class="col">
+            <label for="drug-ordered" class="col-form-label">Drug Ordered</label>
+            <input type="text" class="form-control" id="date-ordered" value="11/18/2022" readonly>
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="drug-synonym" class="col-form-label">Drug Synonym</label>
+            <input type="text" class="form-control" id="drug-synonym" readonly>
+          </div>
+          <div class="col">
+            <label for="expire" class="col-form-label">Expires on</label>
+            <input type="text" class="form-control" id="expire" value="11/17/2024" readonly>
+          </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="mx-auto">
+          <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+        </div> 
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <!-- update drug modal -->
+ <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header" >
+        <h5 class="modal-title w-100 text-center" id="exampleModalLabel">About This Drug</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col">
+            <label for="drug-mneumonic" class="col-form-label">Drug Mneumonic</label>
+            <input type="text" class="form-control" id="drug-mneumonic" value="Paracetamol">
+          </div>
+          <div class="col">
+            <label for="drug-maker" class="col-form-label">Drug Manufacturer</label>
+            <input type="text" class="form-control" id="drug-maker" value="Watsons">
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="generic-name" class="col-form-label">Generic Name</label>
+              <input type="text" class="form-control" id="generic-name" value="Acetaminophen">
+          </div>
+          <div class="col">
+            <label for="date-manufactured" class="col-form-label">Date Manufactured</label>
+            <input type="text" class="form-control" id="date" value="11/17/2022">
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="brand-name" class="col-form-label">Brand Name</label>
+            <input type="text" class="form-control" id="brand-name" value="Biogesic">
+          </div>
+          <div class="col">
+            <label for="drug-ordered" class="col-form-label">Drug Ordered</label>
+            <input type="text" class="form-control" id="date-ordered" value="11/18/2022">
+          </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+            <label for="drug-synonym" class="col-form-label">Drug Synonym</label>
+            <input type="text" class="form-control" id="drug-synonym">
+          </div>
+          <div class="col">
+            <label for="expire" class="col-form-label">Expires on</label>
+            <input type="text" class="form-control" id="expire" value="11/17/2024">
+          </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="mx-auto">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal">Update</button>
+        </div> 
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 	
 	
