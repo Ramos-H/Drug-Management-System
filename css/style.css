@@ -80,17 +80,21 @@ ion-icon {
 }
 
 #tableData{
-    background-color:#ECE3FF;
+    background-color:#FFDE59;
 }
 
 #tableRows{
-    background-color: #BB99FF;
+    background-color: #2176FF;
+    color:white;
 }
 
 #genericName{
-    background-color: #DECDFF;
+    background-color: #FFDE59;
 }
 
 body{
     background-color: #D8EEFD;
 }
+
+
+
