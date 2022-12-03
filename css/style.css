@@ -16,35 +16,36 @@ ion-icon {
 
 #btn1{
     padding: 5px 50px;
-    background-color:#004AAD;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
 #btn1:hover{
-    background:#012c64
+    background:#2176FF;
 }
 
 #btn2{
     padding: 5px 50px;
-    background-color:#ffde59;
+    background-color:#F79824;
     border-width: 0px;
-    color: black;
+    color: white;
 }
 
 #btn2:hover{
-    background:#f1cd3b
+    background:#F79824;
 }
 
 
 #view{
     padding: 5px 10px;
-    background-color:#004AAD;
+    
+    background-color:#2176FF;
     border-width: 0px;
 }
 
 #update{
     padding: 5px 10px;
-    background-color:#008037;
+    background-color:#F79824;
     border-width: 0px;
 }
 
@@ -56,13 +57,13 @@ ion-icon {
 
 #add{
     padding: 5px 35px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
 #generateReport{
     padding: 5px 35px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
@@ -88,4 +89,8 @@ ion-icon {
 
 #genericName{
     background-color: #DECDFF;
+}
+
+body{
+    background-color: #D8EEFD;
 }
