@@ -96,5 +96,7 @@ body{
     background-color: #D8EEFD;
 }
 
-
-
+.row justify-content-between{
+    overflow-y: auto;
+    overflow:scroll;
+}
