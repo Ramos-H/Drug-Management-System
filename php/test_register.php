@@ -12,6 +12,7 @@
   <?php
     require_once 'utils.php';
     require_once 'constants.php';
+    require_once 'database.php';
 
     $submit_value = $_POST['submit'] ?? null;
     $username = isset($_POST['username']) ? trim($_POST['username']) : null;
@@ -80,6 +81,13 @@
     else if(!$confirm_password_matches)
     {
       $errors['confirm_password'] = 'Your password and confirm password fields do not match.';
+    }
+
+    if($has_submitted && $has_username && $has_password && $has_confirm_password
+     && !$username_too_long && !$password_too_short && $confirm_password_matches)
+    {
+      insert_new_user($username, $password);
+      echo 'Inserted new user. <br>';
     }
   ?>
 
