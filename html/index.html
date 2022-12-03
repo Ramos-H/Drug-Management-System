@@ -19,17 +19,36 @@
   
 </head>
 
-<!-- contents of the web page --> 
 <body>
+  
+<!-- navigation bar --> 
+<nav class="navbar navbar-expand-sm navbar-dark">
+  <div class="container d-flex">
+    <ul class="navbar-nav p-2 flex-grow-1">
+      <li class="nav-item">
+         <a class="nav-link active" id="homeNav" aria-current="page" href="index.html"><b>Home</b></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="reportsNav" href="#"><b>Reports</b></a>
+      </li>
+    </ul>
 
-<br/>
-<br/>
-<br/>
+    <ul class="navbar-nav p-2 flex-grow-2">
+      <li>
+        <a class="nav-link" id="logoutNav" href="#"><b>Log out</b></a>
+      </li>  
+    </ul>
+  </div>
+</nav>	
+<hr/>
 
 <div class="container"> 
 <div class="form">
+  <button id ="addBtn" class="btn btn-md btn-dark" type="submit">Add</button> 
+  <button id ="generateReportBtn" class="btn btn-md btn-dark" type="submit">Generate Report</button>
+  <br/>
     <div class="row justify-content-between">
-        <div class="col">
+    <div class="col">
     <table class="table table-hover table-bordered border-light">
       <thead>
         <tr id="tableRows">
@@ -91,12 +110,7 @@
             </div>
         </div>
 </div>
-    <button id ="addBtn" class="btn btn-md btn-dark" type="submit">Add</button> 
-    <button id ="generateReportBtn" class="btn btn-md btn-dark" type="submit">Generate Report</button>
-
 </div>
-
-	
 	
 	<!-- icons -->
 	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
