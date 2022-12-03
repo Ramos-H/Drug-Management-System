@@ -2,6 +2,10 @@ ion-icon {
     font-size: 20px;
 }
 
+.navbar{
+    margin-bottom: -.5cm;
+}
+
 #homeNav{
     background-color: #004AAD;
     padding: 10px 40px;
