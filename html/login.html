@@ -1,60 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <title>Login</title>
-
-    <!-- for proper rendering -->
+    <title>Log In</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- bootstrap, js, and jquery -->
-    <script src="script.js"></script>
+    <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>  
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-    <!-- external css --> 
-    <link href="../css/style.css" rel="stylesheet">
   </head>
 
-  <!-- contents of the web page --> 
   <body>
-    <div class="container-fluid text-center">
-      <br/>
-      <h1><b>Login</b></h1>
-      <br/>
-    </div>
-
-    <div class="container-fluid">  
-      <!-- contains login form -->
-      <form onsubmit="">
-        <div class="form">
-          <label for="formUsername" class="form-label">Username</label>
-          <input type="username" class="form-control" id="username" required>
-        </div>
-        <br/>
-
-        <div class="form">
-          <label for="formPassword" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" required>
-        </div>
-
-        <div class="form">
-          <div class="row text-center">
-            <div class="col-md-6">
-              <button id ="btn1" class="btn btn-md btn-dark mt-4" type="submit" onclick="window.location.href = 'register.html';" >Register</button>
-            </div>
-            <div class="col-md-6">
-              <button id = "btn1" class="btn btn-md btn-dark mt-4" type="submit2" onclick="window.location.href = 'index.html';">Log In</button> 
+    <main>
+      <div class="container-fluid d-flex flex-column justify-content-center vh-100 align-items-center text-center">
+        <div class="col-10 col-md-5">
+          <h1 class="mb-3">Register</h1>
+          <!-- Username -->
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="username" id="username" placeholder="Username">
+            <label for="username">Username</label>
+            <div class="invalid-feedback"></div>
+          </div>
+          <!-- Password -->
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            <label for="password">Password</label>
+            <div class="invalid-feedback"></div>
+          </div>
+          <!-- Buttons -->
+          <div class="container">
+            <div class="row gap-2">
+              <a href="register.html" class="btn col btn-secondary">Register</a>
+              <button type="button" class="btn col btn-primary">Log In</button>
             </div>
           </div>
         </div>
-      </form>
-    </div>
-    <br/>
-
-    <!-- icons -->
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+      </div>
+    </main>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
   </body>
 </html>
