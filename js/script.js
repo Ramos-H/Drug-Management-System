@@ -125,7 +125,7 @@ function requestRegister()
 function loadTable()
 {
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", '../php/test.php', true);
+  xhr.open("POST", '../php/main_table.php', true);
   
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
