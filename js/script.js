@@ -122,6 +122,23 @@ function requestRegister()
   xhr.send(encodeURIComponent(data));
 }
 
+function loadTable()
+{
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", '../php/test.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+      let response = JSON.parse(xhr.responseText);
+      console.log(response);
+    }
+  }
+  xhr.send();
+}
+
 function isNullOrWhitespace(str) { return (str == null) || (str.trim().length < 1); }
 
 function jsonifyForm(form)

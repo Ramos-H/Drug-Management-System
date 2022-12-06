@@ -55,4 +55,70 @@
 
     return -1;
   }
+
+  function get_all_drug_info()
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_INFO';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
+
+  function get_all_drugs_in_inventory()
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_INV';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
+
+  function get_all_drugs_name_info()
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_NAMES';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
+
+  function get_drug_info($drug_num)
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_INFO WHERE DRUG_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_num]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return !empty($result) ? $result[0] : 'No drug info associated with drug number ' . $drug_num;
+  }
+
+  function get_drug_in_inventory($inv_num)
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_INV WHERE INV_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$inv_num]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return !empty($result) ? $result[0] : 'No inventory info associated with inventory number ' . $inv_num;
+  }
+
+  function get_drug_name_info($name_num)
+  {
+    global $db;
+    $statement = 'SELECT * FROM DRUG_NAMES WHERE NAME_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$name_num]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return !empty($result) ? $result[0] : 'No name info associated with name number ' . $name_num;
+  }
 ?>
