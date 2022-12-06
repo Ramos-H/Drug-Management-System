@@ -121,4 +121,19 @@
     $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
     return !empty($result) ? $result[0] : 'No name info associated with name number ' . $name_num;
   }
+
+  function get_main_table()
+  {
+    global $db;
+    $statement = 'SELECT DRUG_NAMES.DRUG_NAME_GEN, DRUG_INV.DRUG_DATE_MAN, DRUG_INV.DRUG_DATE_EXP,
+                          DRUG_INFO.DRUG_STRENGTH, DRUG_INFO.STRENGTH_UNIT, DRUG_INFO.DRUG_TYPE, 
+                          DRUG_INV.DRUG_QUANTITY
+                  FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
+                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
 ?>
