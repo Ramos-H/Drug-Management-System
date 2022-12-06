@@ -136,4 +136,20 @@
     $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
     return $result;
   }
+
+  function get_drug_manufacturer_count()
+  {
+    global $db;
+    $statement = 'SELECT DRUG_MANUFACTURER, COUNT(DRUG_MANUFACTURER) AS "COUNT", 
+                          CINT(ROUND(COUNT(DRUG_MANUFACTURER) / (select COUNT(*) from DRUG_INV) * 100)) AS "PERCENTAGE"
+                  FROM DRUG_INV 
+                  GROUP BY DRUG_MANUFACTURER';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
+
+  // Running out: when quantity is less than 10
 ?>
