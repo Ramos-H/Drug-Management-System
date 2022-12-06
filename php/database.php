@@ -151,5 +151,19 @@
     return $result;
   }
 
+  function get_drug_type_count()
+  {
+    global $db;
+    $statement = 'SELECT DRUG_TYPE, COUNT(DRUG_TYPE) AS "COUNT", 
+                          CINT(ROUND(COUNT(DRUG_TYPE) / (select COUNT(*) from DRUG_INFO) * 100)) AS "PERCENTAGE"
+                  FROM DRUG_INFO 
+                  GROUP BY DRUG_TYPE';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+    return $result;
+  }
+
   // Running out: when quantity is less than 10
 ?>
