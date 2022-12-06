@@ -129,6 +129,7 @@ function loadAllData()
   loadTable();
   loadDrugTypeReport();
   loadManufacturerReport();
+  loadInventoryReport();
 }
 
 function loadTable()
@@ -320,6 +321,73 @@ function loadDrugTypeReport()
     }
   }
 
+  xhr.send();
+}
+
+function loadInventoryReport()
+{
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", '../php/report_drug_inventory.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+    {
+      let table = JSON.parse(xhr.responseText);
+      let main_table = document.getElementById('report_drug_inventory');
+      for (const entry of table)
+      {
+        let row = document.createElement('tr');
+
+        // Add all property values
+        for (let key in entry)
+        {
+          if (Object.hasOwnProperty.call(entry, key))
+          {
+            let value = entry[key];
+            let column = document.createElement('td');
+            if (key === 'DRUG_NAME_GEN')
+            {
+              column.classList.add('text-start');
+            }
+            
+            let valueText = null;
+            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_EXP')
+            {
+              valueText = document.createTextNode(value.split(' ')[0]);
+            }
+            else
+            {
+              valueText = document.createTextNode(value);
+            }
+
+            column.appendChild(valueText);
+
+            row.appendChild(column);
+          }
+        }
+
+        // Append row to table
+        main_table.appendChild(row);
+      }
+
+      // Refresh table styles
+      let tableContainer = main_table.parentElement;
+      let classes = [];
+      for (const value of tableContainer.classList.values())
+      {
+        classes.push(value);
+        tableContainer.classList.remove(value);
+      }
+
+      for (const value of classes)
+      {
+        tableContainer.classList.add(value);
+      }
+    }
+  }
   xhr.send();
 }
 
