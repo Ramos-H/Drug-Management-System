@@ -352,7 +352,7 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" id="drugInfoCancelBtn" class="btn btn-secondary" onclick="hideModal()">Close</button>
+            <button type="button" id="drugInfoCancelBtn" class="btn btn-secondary" onclick="hideDrugModal()">Close</button>
             <button type="button" id="drugInfoConfirmBtn" class="btn btn-primary" onclick="addDrug()">Save changes</button>
           </div>
         </div>
@@ -368,14 +368,12 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
 
-          <div class="modal-body">
-
-          </div>
+          <div id="sanityBody" class="modal-body align-middle text-center"></div>
 
           <div class="modal-footer">
             <div class="container">
               <div class="row gap-2">
-                <button type="button" id="sanityCancelBtn" class="btn col btn-secondary">No</button>
+                <button type="button" id="sanityCancelBtn" class="btn col btn-secondary" onclick="hideSanityModal()">No</button>
                 <button type="button" id="sanityConfirmBtn" class="btn col btn-primary">Yes</button>
               </div>
             </div>

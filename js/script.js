@@ -1,5 +1,3 @@
-
-
 function requestLogin()
 {
   const xhr = new XMLHttpRequest();
@@ -587,9 +585,16 @@ function showAddModal()
   modalObject.show();
 }
 
-function hideModal()
+function hideDrugModal()
 {
   let modal = document.getElementById('drugInfoModal');
+  let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
+  modalObject.hide();
+}
+
+function hideSanityModal()
+{
+  let modal = document.getElementById('sanityModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.hide();
 }
