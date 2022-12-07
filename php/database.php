@@ -134,5 +134,37 @@
     return $result;
   }
 
+  function get_drug_expire_report()
+  {
+    global $db;
+    $statement = 'SELECT DRUG_NAMES.DRUG_NAME_GEN, 
+                          DRUG_INV.DRUG_DATE_MAN, 
+                          DRUG_INV.DRUG_DATE_EXP, 
+                          DRUG_INV.DRUG_DATE_EXP as "EXPIRY_DAYS",
+                          DRUG_INV.DRUG_QUANTITY
+                  FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
+                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+
+    // Manually calculate days before expiration because DateDiff isn't working here
+    foreach ($result as $key => $value) 
+    {
+      $current_date = new DateTimeImmutable();
+      $exp_date = new DateTimeImmutable(explode(" ", $value['EXPIRY_DAYS'])[0]);
+      $diff = date_diff($current_date, $exp_date);
+
+      if($current_date > $exp_date) { $value['EXPIRY_DAYS'] = 'ALREADY EXPIRED'; }
+      elseif($diff->d == 0) { $value['EXPIRY_DAYS'] = 'END OF DAY'; }
+      else { $value['EXPIRY_DAYS'] = sprintf('%d %s left', $diff->d, ($diff->d > 1) ? 'days' : 'day'); }
+      
+      $result[$key] = $value;
+    }
+
+    return $result;
+  }
+
   // Running out: when quantity is less than 10
 ?>
