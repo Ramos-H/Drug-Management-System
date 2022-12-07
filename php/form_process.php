@@ -1,4 +1,4 @@
-<?php 
+<?php
   require_once 'database.php';
   require_once 'utils.php';
   $has_submitted = !empty($_POST);
@@ -8,18 +8,18 @@
     $_POST = json_decode(array_keys($_POST)[0], true);
   }
 
-  $name_generic       = $_POST['name_generic']       ? trim($_POST['name_generic'])       : null;
-  $name_brand         = $_POST['name_brand']         ? trim($_POST['name_brand'])         : null;
-  $drug_manufacturer  = $_POST['drug_manufacturer']  ? trim($_POST['drug_manufacturer'])  : null;
-  $drug_strength      = $_POST['drug_strength']      ? trim($_POST['drug_strength'])      : null;
-  $drug_strength_unit = $_POST['drug_strength_unit'] ? trim($_POST['drug_strength_unit']) : null;
-  $drug_dosage        = $_POST['drug_dosage']        ? trim($_POST['drug_dosage'])        : null;
-  $drug_mnemonic      = $_POST['drug_mnemonic']      ? trim($_POST['drug_mnemonic'])      : null;
-  $drug_synonym       = $_POST['drug_synonym']       ? trim($_POST['drug_synonym'])       : null;
-  $drug_type          = $_POST['drug_type']          ? trim($_POST['drug_type'])          : null;
-  $quantity           = $_POST['quantity']           ? trim($_POST['quantity'])           : null;
-  $date_manufactured  = $_POST['date_manufactured']  ? trim($_POST['date_manufactured'])  : null;
-  $date_expiration    = $_POST['date_expiration']    ? trim($_POST['date_expiration'])    : null;
+  $name_generic       = isset($_POST['name_generic'])       ? trim($_POST['name_generic'])       : null;
+  $name_brand         = isset($_POST['name_brand'])         ? trim($_POST['name_brand'])         : null;
+  $drug_manufacturer  = isset($_POST['drug_manufacturer'])  ? trim($_POST['drug_manufacturer'])  : null;
+  $drug_strength      = isset($_POST['drug_strength'])      ? trim($_POST['drug_strength'])      : null;
+  $drug_strength_unit = isset($_POST['drug_strength_unit']) ? trim($_POST['drug_strength_unit']) : null;
+  $drug_dosage        = isset($_POST['drug_dosage'])        ? trim($_POST['drug_dosage'])        : null;
+  $drug_mnemonic      = isset($_POST['drug_mnemonic'])      ? trim($_POST['drug_mnemonic'])      : null;
+  $drug_synonym       = isset($_POST['drug_synonym'])       ? trim($_POST['drug_synonym'])       : null;
+  $drug_type          = isset($_POST['drug_type'])          ? trim($_POST['drug_type'])          : null;
+  $quantity           = isset($_POST['quantity'])           ? trim($_POST['quantity'])           : null;
+  $date_manufactured  = isset($_POST['date_manufactured'])  ? trim($_POST['date_manufactured'])  : null;
+  $date_expiration    = isset($_POST['date_expiration'])    ? trim($_POST['date_expiration'])    : null;
 
   $has_name_generic       = !check_str_empty($name_generic);
   $has_name_brand         = !check_str_empty($name_brand);
@@ -41,7 +41,7 @@
                   'drug_manufacturer'  => '', 
                   'drug_strength'      => '', 
                   'drug_strength_unit' => '', 
-                  'drug_dosage' => '', 
+                  'drug_dosage'        => '', 
                   'drug_mnemonic'      => '', 
                   'drug_synonym'       => '', 
                   'drug_type'          => '', 
@@ -125,18 +125,4 @@
   {
     $op_result['data'] = $errors;
   }
-  elseif($op_result['status'] === 'SUCCESS')
-  {
-    if(insert_new_drug($_POST))
-    {
-      $op_result['data'] = 'The drug has been successfully added to the database!';
-    }
-    else
-    {
-      $op_result['status'] = 'FAILURE';
-      $op_result['data'] = 'Something went wrong. The drug has not been added to the database. Please try again.';
-    }
-  }
-
-  echo json_encode($op_result);
 ?>

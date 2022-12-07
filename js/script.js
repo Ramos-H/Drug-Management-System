@@ -325,18 +325,18 @@ function showViewModal(inv_no)
   modalObject.show();
 }
 
-function showEditModal(event = null, inv_no = null)
+function showEditModal(event = null, inv_no = -1)
 {
   if(event !== null) { event.stopPropagation(); }
 
   hideSanityModal();
-  if(inv_no !== null) { loadDrugInModal(inv_no); }
+  if(inv_no > -1) { loadDrugInModal(inv_no); }
   setFormReadOnly(false);
   
   document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
   const confirmBtn = document.getElementById('drugInfoConfirmBtn');
   confirmBtn.innerText = 'Save changes';
-  confirmBtn.setAttribute('onclick', 'showEditDrugSanityModal()');
+  confirmBtn.setAttribute('onclick', `validateDrugForm(${inv_no})`);
 
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
@@ -361,7 +361,7 @@ function showAddModal(shouldReset = true)
   document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
   confirmBtn.innerText = 'Add new drug';
 
-  confirmBtn.setAttribute('onclick', `showAddDrugSanityModal()`);
+  confirmBtn.setAttribute('onclick', `validateDrugForm()`);
 
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
@@ -376,10 +376,79 @@ function hideDrugModal()
 }
 
 // DRUG INFO LOGIC
-function addDrug()
+function validateDrugForm(inv_no = -1)
 {
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", '../php/drug_info_add_edit.php', true);
+  xhr.open("POST", '../php/validate_form.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+    {
+      let response = JSON.parse(xhr.response);
+      if (response.status === 'SUCCESS')
+      {
+        if (inv_no > -1) { showEditDrugSanityModal(inv_no); }
+        else { showAddDrugSanityModal(); }
+      }
+      else if (response.status === 'FAILURE')
+      {
+        let field_name_generic       = document.getElementById('name_generic');
+        let field_name_brand         = document.getElementById('name_brand');
+        let field_drug_strength      = document.getElementById('drug_strength');
+        let field_drug_strength_unit = document.getElementById('drug_strength_unit');
+        let field_drug_dosage        = document.getElementById('drug_dosage');
+        let field_drug_type          = document.getElementById('drug_type');
+        let field_date_manufactured  = document.getElementById('date_manufactured');
+        let field_date_expiration    = document.getElementById('date_expiration');
+        let field_quantity           = document.getElementById('quantity');
+        let field_drug_manufacturer  = document.getElementById('drug_manufacturer');
+        let field_drug_mnemonic      = document.getElementById('drug_mnemonic');
+        let field_drug_synonym       = document.getElementById('drug_synonym');
+
+        let feedback_name_generic       = field_name_generic       .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_name_brand         = field_name_brand         .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_strength      = field_drug_strength      .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_strength_unit = field_drug_strength_unit .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_dosage        = field_drug_dosage        .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_type          = field_drug_type          .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_date_manufactured  = field_date_manufactured  .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_date_expiration    = field_date_expiration    .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_quantity           = field_quantity           .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_manufacturer  = field_drug_manufacturer  .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_mnemonic      = field_drug_mnemonic      .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_synonym       = field_drug_synonym       .parentElement.getElementsByClassName('invalid-feedback')[0];
+
+        setFieldState(response.data.name_generic,       field_name_generic,       feedback_name_generic);
+        setFieldState(response.data.name_brand,         field_name_brand,         feedback_name_brand);
+        setFieldState(response.data.drug_strength,      field_drug_strength,      feedback_drug_strength);
+        setFieldState(response.data.drug_strength_unit, field_drug_strength_unit, feedback_drug_strength_unit);
+        setFieldState(response.data.drug_dosage,        field_drug_dosage,        feedback_drug_dosage);
+        setFieldState(response.data.drug_type,          field_drug_type,          feedback_drug_type);
+        setFieldState(response.data.date_manufactured,  field_date_manufactured,  feedback_date_manufactured);
+        setFieldState(response.data.date_expiration,    field_date_expiration,    feedback_date_expiration);
+        setFieldState(response.data.quantity,           field_quantity,           feedback_quantity);
+        setFieldState(response.data.drug_manufacturer,  field_drug_manufacturer,  feedback_drug_manufacturer);
+        setFieldState(response.data.drug_mnemonic,      field_drug_mnemonic,      feedback_drug_mnemonic);
+        setFieldState(response.data.drug_synonym,       field_drug_synonym,       feedback_drug_synonym);
+      }
+    }
+  }
+
+  let data = formToArray(document.forms['drugModalForm']);
+  data['inv_num'] = inv_no;
+  xhr.send(JSON.stringify(data));
+}
+
+function submitDrugForm(inv_no = -1)
+{
+  const xhr = new XMLHttpRequest();
+  let address = '../php/';
+  address += (inv_no > -1) ? 'drug_edit.php' : 'drug_add.php';
+
+  xhr.open("POST", address, true);
   
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -398,170 +467,13 @@ function addDrug()
         document.getElementById('sanityBody').innerText = response.data;
         document.getElementById('sanityCancelBtn').innerText = 'Go back';
         document.getElementById('sanityConfirmBtn').classList.add('d-none');
-
-        let field_name_generic = document.getElementById('name_generic');
-        let field_name_brand = document.getElementById('name_brand');
-        let field_drug_strength = document.getElementById('drug_strength');
-        let field_drug_strength_unit = document.getElementById('drug_strength_unit');
-        let field_drug_dosage = document.getElementById('drug_dosage');
-        let field_drug_type = document.getElementById('drug_type');
-        let field_date_manufactured = document.getElementById('date_manufactured');
-        let field_date_expiration = document.getElementById('date_expiration');
-        let field_quantity = document.getElementById('quantity');
-        let field_drug_manufacturer = document.getElementById('drug_manufacturer');
-        let field_drug_mnemonic = document.getElementById('drug_mnemonic');
-        let field_drug_synonym = document.getElementById('drug_synonym');
-
-        let feedback_name_generic       = field_name_generic       .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_name_brand         = field_name_brand         .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_strength      = field_drug_strength      .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_strength_unit = field_drug_strength_unit .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_dosage        = field_drug_dosage        .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_type          = field_drug_type          .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_date_manufactured  = field_date_manufactured  .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_date_expiration    = field_date_expiration    .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_quantity           = field_quantity           .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_manufacturer  = field_drug_manufacturer  .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_mnemonic      = field_drug_mnemonic      .parentElement.getElementsByClassName('invalid-feedback')[0];
-        let feedback_drug_synonym       = field_drug_synonym       .parentElement.getElementsByClassName('invalid-feedback')[0];
-
-        if (!isNullOrWhitespace(response.data.name_generic))
-        {
-          field_name_generic.classList.add('is-invalid');
-          feedback_name_generic.innerHTML = response.data.name_generic;
-        }
-        else
-        {
-          field_name_generic.classList.remove('is-invalid');
-          feedback_name_generic.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.name_brand))
-        {
-          field_name_brand.classList.add('is-invalid');
-          feedback_name_brand.innerHTML = response.data.name_brand;
-        }
-        else
-        {
-          field_name_brand.classList.remove('is-invalid');
-          feedback_name_brand.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_strength))
-        {
-          field_drug_strength.classList.add('is-invalid');
-          feedback_drug_strength.innerHTML = response.data.drug_strength;
-        }
-        else
-        {
-          field_drug_strength.classList.remove('is-invalid');
-          feedback_drug_strength.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_strength_unit))
-        {
-          field_drug_strength_unit.classList.add('is-invalid');
-          feedback_drug_strength_unit.innerHTML = response.data.drug_strength_unit;
-        }
-        else
-        {
-          field_drug_strength_unit.classList.remove('is-invalid');
-          feedback_drug_strength_unit.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_dosage))
-        {
-          field_drug_dosage.classList.add('is-invalid');
-          feedback_drug_dosage.innerHTML = response.data.drug_dosage;
-        }
-        else
-        {
-          field_drug_dosage.classList.remove('is-invalid');
-          feedback_drug_dosage.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_type))
-        {
-          field_drug_type.classList.add('is-invalid');
-          feedback_drug_type.innerHTML = response.data.drug_type;
-        }
-        else
-        {
-          field_drug_type.classList.remove('is-invalid');
-          feedback_drug_type.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.date_manufactured))
-        {
-          field_date_manufactured.classList.add('is-invalid');
-          feedback_date_manufactured.innerHTML = response.data.date_manufactured;
-        }
-        else
-        {
-          field_date_manufactured.classList.remove('is-invalid');
-          feedback_date_manufactured.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.date_expiration))
-        {
-          field_date_expiration.classList.add('is-invalid');
-          feedback_date_expiration.innerHTML = response.data.date_expiration;
-        }
-        else
-        {
-          field_date_expiration.classList.remove('is-invalid');
-          feedback_date_expiration.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.quantity))
-        {
-          field_quantity.classList.add('is-invalid');
-          feedback_quantity.innerHTML = response.data.quantity;
-        }
-        else
-        {
-          field_quantity.classList.remove('is-invalid');
-          feedback_quantity.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_manufacturer))
-        {
-          field_drug_manufacturer.classList.add('is-invalid');
-          feedback_drug_manufacturer.innerHTML = response.data.drug_manufacturer;
-        }
-        else
-        {
-          field_drug_manufacturer.classList.remove('is-invalid');
-          feedback_drug_manufacturer.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_mnemonic))
-        {
-          field_drug_mnemonic.classList.add('is-invalid');
-          feedback_drug_mnemonic.innerHTML = response.data.drug_mnemonic;
-        }
-        else
-        {
-          field_drug_mnemonic.classList.remove('is-invalid');
-          feedback_drug_mnemonic.innerHTML = '';
-        }
-        
-        if (!isNullOrWhitespace(response.data.drug_synonym))
-        {
-          field_drug_synonym.classList.add('is-invalid');
-          feedback_drug_synonym.innerHTML = response.data.drug_synonym;
-        }
-        else
-        {
-          field_drug_synonym.classList.remove('is-invalid');
-          feedback_drug_synonym.innerHTML = '';
-        }
       }
     }
   }
 
-  let data = jsonifyForm(document.forms['drugModalForm']);
-  xhr.send(data);
+  let data = formToArray(document.forms['drugModalForm']);
+  data['inv_num'] = inv_no;
+  xhr.send(JSON.stringify(data));
 }
 
 // SANITY CHECK MODAL
@@ -573,9 +485,9 @@ function deleteEntry(event, inv_no)
 
 function resetSanityModal()
 {
-  document.getElementById('sanityCancelBtn').classList.remove('d-none');
+  document.getElementById('sanityCancelBtn') .classList.remove('d-none');
   document.getElementById('sanityConfirmBtn').classList.remove('d-none');
-  document.getElementById('sanityFooter').classList.remove('d-none');
+  document.getElementById('sanityFooter')    .classList.remove('d-none');
 }
 
 function showAddDrugSanityModal()
@@ -585,23 +497,26 @@ function showAddDrugSanityModal()
 
   let sanityBody = document.getElementById('sanityBody');
   sanityBody.innerText = 'Are you sure you want to add this drug?';
-  document.getElementById('sanityCancelBtn').setAttribute('onclick', 'showAddModal(false)');
-  document.getElementById('sanityConfirmBtn').setAttribute('onclick', 'addDrug()');
+  document.getElementById('sanityCancelBtn') .setAttribute('onclick', 'showAddModal(false)');
+  document.getElementById('sanityConfirmBtn').setAttribute('onclick', 'submitDrugForm()');
 
   let sanityModal = document.getElementById('sanityModal');
   let sanityModalObject = bootstrap.Modal.getOrCreateInstance(sanityModal);
   sanityModalObject.show();
 }
 
-function showEditDrugSanityModal()
+function showEditDrugSanityModal(inv_no)
 {
   hideDrugModal();
   resetSanityModal();
 
   let sanityBody = document.getElementById('sanityBody');
   sanityBody.innerText = 'Are you sure you want to save your changes to this drug?';
-  document.getElementById('sanityCancelBtn').setAttribute('onclick', 'showEditModal()');
-  document.getElementById('sanityConfirmBtn').setAttribute('onclick', 'alert(\'Edit drug here!\')');
+  document.getElementById('sanityCancelBtn').setAttribute('onclick', `showEditModal(null, ${inv_no})`);
+  if (inv_no > -1)
+  {
+    document.getElementById('sanityConfirmBtn').setAttribute('onclick', `submitDrugForm(${inv_no})`);
+  }
 
   let sanityModal = document.getElementById('sanityModal');
   let sanityModalObject = bootstrap.Modal.getOrCreateInstance(sanityModal);
@@ -880,7 +795,7 @@ function loadDrugExpireReport()
 
 function isNullOrWhitespace(str) { return (str == null) || (str.trim().length < 1); }
 
-function jsonifyForm(form)
+function formToArray(form)
 {
   let inputs = form.elements;
   let array = {};
@@ -889,5 +804,24 @@ function jsonifyForm(form)
     if (element.tagName.toLowerCase() === 'button') { continue; }
     array[element.getAttribute('name')] = element.value;
   }
-  return JSON.stringify(array);
+  return array;
+}
+
+function jsonifyForm(form)
+{
+  return JSON.stringify(formToArray(form));
+}
+
+function setFieldState(value, field, feedback)
+{
+  if (!isNullOrWhitespace(value))
+  {
+    field.classList.add('is-invalid');
+    feedback.innerHTML = value;
+  }
+  else
+  {
+    field.classList.remove('is-invalid');
+    feedback.innerHTML = '';
+  }
 }

@@ -242,10 +242,10 @@
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute([$name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type]);
     if(!$exec_success) { return false; }
-    return get_drug_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type);
+    return get_info_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type);
   }
 
-  function get_drug_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type)
+  function get_info_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type)
   {
     global $db;
     $statement = 'SELECT DRUG_NO FROM DRUG_INFO 
@@ -259,5 +259,55 @@
     if(!$exec_success) { return false; }
     $result = $prepped_stmt->fetchAll(PDO::FETCH_NUM)[0][0];
     return $result;
+  }
+
+  function edit_drug($values)
+  {
+    $keys = get_primary_keys($values['inv_num']);
+    update_drug_name($keys['NAME_NO'] ,$values['drug_mnemonic'], $values['name_generic'], $values['name_brand'], $values['drug_synonym']);
+    update_drug_info($keys['DRUG_NO'], $values['drug_strength'], $values['drug_strength_unit'], $values['drug_dosage'], $values['drug_type']);
+
+    global $db;
+    $statement = 'UPDATE DRUG_INV 
+                  SET DRUG_MANUFACTURER = ?, DRUG_DATE_MAN = ?, DRUG_DATE_EXP = ?
+                  WHERE INV_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$values['drug_manufacturer'], $values['date_manufactured'], $values['date_expiration'], $values['inv_num']]);
+    return $exec_success;
+  }
+
+  function get_primary_keys($inv_num)
+  {
+    global $db;
+    $statement = 'SELECT DRUG_INV.INV_NO, DRUG_INV.DRUG_NO, DRUG_INFO.NAME_NO 
+                  FROM DRUG_INV, DRUG_INFO
+                  WHERE DRUG_INV.INV_NO = ? AND DRUG_INFO.DRUG_NO = DRUG_INV.DRUG_NO';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$inv_num]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED)[0];
+    return $result;
+  }
+
+  function update_drug_info($drug_num, $drug_strength, $strength_unit, $drug_dose, $drug_type)
+  {
+    global $db;
+    $statement = 'UPDATE DRUG_INFO 
+                  SET DRUG_STRENGTH = ?, STRENGTH_UNIT = ?, DRUG_DOSE = ?, DRUG_TYPE = ?
+                  WHERE DRUG_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_strength, $strength_unit, $drug_dose, $drug_type, $drug_num]);
+    return $exec_success;
+  }
+
+  function update_drug_name($name_num, $drug_mnemonic, $name_generic, $name_brand, $drug_synonym)
+  {
+    global $db;
+    $statement = 'UPDATE DRUG_NAMES 
+                  SET DRUG_MNEMONIC = ?, DRUG_NAME_GEN = ?, DRUG_NAME_BRAND = ?, DRUG_SYNONYM = ?
+                  WHERE NAME_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_mnemonic, $name_generic, $name_brand, $drug_synonym, $name_num]);
+    return $exec_success;
   }
 ?>
