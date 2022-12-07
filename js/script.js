@@ -158,12 +158,22 @@ function loadMainTable()
         checkboxCell.appendChild(checkbox);
         row.appendChild(checkboxCell);
 
+        let inv_no = null;
+
         // Add all property values
         for (let key in entry)
         {
           if (Object.hasOwnProperty.call(entry, key))
           {
             let value = entry[key];
+
+            if (key === 'INV_NO')
+            {
+              inv_no = value;
+              row.setAttribute('onclick', `viewEntry(${inv_no})`);
+              continue;
+            }
+
             let column = document.createElement('td');
             if (key === 'DRUG_NAME_GEN')
             {
@@ -193,10 +203,12 @@ function loadMainTable()
         let updateButton = document.createElement('button');
         updateButton.appendChild(document.createTextNode('Update'));
         updateButton.setAttribute('type', 'button');
+        updateButton.setAttribute('onclick', `editEntry(event, ${inv_no})`);
         updateButton.classList.add('btn', 'btn-primary');
-
+        
         let deleteButton = document.createElement('button');
         deleteButton.appendChild(document.createTextNode('Delete'));
+        deleteButton.setAttribute('onclick', `deleteEntry(event, ${inv_no})`);
         deleteButton.setAttribute('type', 'button');
         deleteButton.classList.add('btn', 'btn-primary');
 
@@ -214,6 +226,76 @@ function loadMainTable()
     }
   }
   xhr.send();
+}
+
+function viewEntry(inv_no)
+{
+  loadDrugInModal(inv_no);
+  let modal = document.getElementById('drugInfoModal');
+  setFormReadOnly(true);
+  let modalObject = new bootstrap.Modal(modal);
+  modalObject.show();
+}
+
+function editEntry(event, inv_no)
+{
+  event.stopPropagation();
+  loadDrugInModal(inv_no);
+  let modal = document.getElementById('drugInfoModal');
+  setFormReadOnly(false);
+  let modalObject = new bootstrap.Modal(modal);
+  modalObject.show();
+}
+
+function deleteEntry(event, inv_no)
+{
+  event.stopPropagation();
+  alert('Delete: ' + inv_no);
+}
+
+function loadDrugInModal(inv_no)
+{
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", '../php/modal_drug_load.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+    {
+      console.log(xhr.responseText);
+      let table = JSON.parse(xhr.responseText);
+      console.log(table);
+
+      let field_name_generic = document.getElementById('name_generic');
+      let field_name_brand = document.getElementById('name_brand');
+      let field_drug_strength = document.getElementById('drug_strength');
+      let field_drug_strength_unit = document.getElementById('drug_strength_unit');
+      let field_drug_dosage = document.getElementById('drug_dosage');
+      let field_drug_type = document.getElementById('drug_type');
+      let field_date_manufactured = document.getElementById('date_manufactured');
+      let field_date_expiration = document.getElementById('date_expiration');
+      let field_quantity = document.getElementById('quantity');
+      let field_drug_manufacturer = document.getElementById('drug_manufacturer');
+      let field_drug_mnemonic = document.getElementById('drug_mnemonic');
+      let field_drug_synonym = document.getElementById('drug_synonym');
+
+      field_name_generic.value = table.DRUG_NAME_GEN;
+      field_name_brand.value = table.DRUG_NAME_BRAND;
+      field_drug_strength.value = table.DRUG_STRENGTH;
+      field_drug_strength_unit.value = table.STRENGTH_UNIT;
+      field_drug_dosage.value = table.DRUG_DOSE;
+      field_drug_type.selectedIndex = field_drug_type.options.namedItem(table.DRUG_TYPE);
+      field_date_manufactured.value = table.DRUG_DATE_MAN.split(" ")[0];
+      field_date_expiration.value = table.DRUG_DATE_EXP.split(" ")[0];
+      field_quantity.value = table.DRUG_QUANTITY;
+      field_drug_manufacturer.value = table.DRUG_MANUFACTURER;
+      field_drug_mnemonic.value = table.DRUG_MNEMONIC;
+      field_drug_synonym.value = table.DRUG_SYNONYM;
+    }
+  }
+  xhr.send(JSON.stringify({inv_num : inv_no}));
 }
 
 function loadManufacturerReport()
@@ -474,6 +556,27 @@ function loadDrugExpireReport()
   }
 
   xhr.send();
+}
+
+function setFormReadOnly(value)
+{
+  let form = document.forms['drugModalForm'];
+  let fields = form.elements;
+  for (const field of fields)
+  {
+    if (value)
+    {
+      field.setAttribute('readonly', true);
+      if (field.getAttribute('id') === 'drug_type')
+      {
+        field.setAttribute('disabled', true);
+      }
+    }
+    else
+    {
+      field.removeAttribute('readonly');
+    }
+  }
 }
 
 function isNullOrWhitespace(str) { return (str == null) || (str.trim().length < 1); }

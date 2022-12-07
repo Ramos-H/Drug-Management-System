@@ -59,7 +59,7 @@
   function get_main_table()
   {
     global $db;
-    $statement = 'SELECT DRUG_NAMES.DRUG_NAME_GEN, DRUG_INV.DRUG_DATE_MAN, DRUG_INV.DRUG_DATE_EXP,
+    $statement = 'SELECT DRUG_INV.INV_NO, DRUG_NAMES.DRUG_NAME_GEN, DRUG_INV.DRUG_DATE_MAN, DRUG_INV.DRUG_DATE_EXP,
                           DRUG_INFO.DRUG_STRENGTH, DRUG_INFO.STRENGTH_UNIT, DRUG_INFO.DRUG_TYPE, 
                           DRUG_INV.DRUG_QUANTITY
                   FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
@@ -167,6 +167,32 @@
       $result[$key] = $value;
     }
 
+    return $result;
+  }
+
+  function get_all_drug_info($inv_num)
+  {
+    global $db;
+    $statement = 'SELECT DRUG_INV.INV_NO, 
+                          DRUG_INV.DRUG_MANUFACTURER,
+                          DRUG_INV.DRUG_DATE_MAN, 
+                          DRUG_INV.DRUG_DATE_ORDER, 
+                          DRUG_INV.DRUG_DATE_EXP, 
+                          DRUG_INV.DRUG_QUANTITY,
+                          DRUG_INFO.DRUG_STRENGTH, 
+                          DRUG_INFO.STRENGTH_UNIT, 
+                          DRUG_INFO.DRUG_DOSE, 
+                          DRUG_INFO.DRUG_TYPE, 
+                          DRUG_NAMES.DRUG_MNEMONIC, 
+                          DRUG_NAMES.DRUG_NAME_GEN, 
+                          DRUG_NAMES.DRUG_NAME_BRAND, 
+                          DRUG_NAMES.DRUG_SYNONYM
+                  FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
+                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED)[0];
     return $result;
   }
 ?>
