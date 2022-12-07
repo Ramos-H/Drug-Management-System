@@ -575,8 +575,12 @@ function showAddDrugModal()
   setFormReadOnly(false);
   document.forms['drugModalForm'].reset();
 
+  let confirmBtn = document.getElementById('drugInfoConfirmBtn');
+
   document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
-  document.getElementById('drugInfoConfirmBtn').innerText = 'Add new drug';
+  confirmBtn.innerText = 'Add new drug';
+
+  confirmBtn.setAttribute('onclick', `addDrug()`);
 
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
