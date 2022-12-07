@@ -195,4 +195,15 @@
     $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED)[0];
     return $result;
   }
+
+  function insert_new_drug()
+  {
+    global $db;
+    $statement = 'INSERT INTO ';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute();
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED)[0];
+    return $result;
+  }
 ?>

@@ -601,6 +601,185 @@ function setFormValuesToLoading()
   }
 }
 
+function addDrug()
+{
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", '../php/drug_info_add_edit.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+    {
+      let response = JSON.parse(xhr.response);
+      if (response.status === 'FAILURE')
+      {
+        let field_name_generic = document.getElementById('name_generic');
+        let field_name_brand = document.getElementById('name_brand');
+        let field_drug_strength = document.getElementById('drug_strength');
+        let field_drug_strength_unit = document.getElementById('drug_strength_unit');
+        let field_drug_dosage = document.getElementById('drug_dosage');
+        let field_drug_type = document.getElementById('drug_type');
+        let field_date_manufactured = document.getElementById('date_manufactured');
+        let field_date_expiration = document.getElementById('date_expiration');
+        let field_quantity = document.getElementById('quantity');
+        let field_drug_manufacturer = document.getElementById('drug_manufacturer');
+        let field_drug_mnemonic = document.getElementById('drug_mnemonic');
+        let field_drug_synonym = document.getElementById('drug_synonym');
+
+        let feedback_name_generic       = field_name_generic       .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_name_brand         = field_name_brand         .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_strength      = field_drug_strength      .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_strength_unit = field_drug_strength_unit .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_dosage        = field_drug_dosage        .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_type          = field_drug_type          .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_date_manufactured  = field_date_manufactured  .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_date_expiration    = field_date_expiration    .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_quantity           = field_quantity           .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_manufacturer  = field_drug_manufacturer  .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_mnemonic      = field_drug_mnemonic      .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_drug_synonym       = field_drug_synonym       .parentElement.getElementsByClassName('invalid-feedback')[0];
+
+        if (!isNullOrWhitespace(response.data.name_generic))
+        {
+          field_name_generic.classList.add('is-invalid');
+          feedback_name_generic.innerHTML = response.data.name_generic;
+        }
+        else
+        {
+          field_name_generic.classList.remove('is-invalid');
+          feedback_name_generic.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.name_brand))
+        {
+          field_name_brand.classList.add('is-invalid');
+          feedback_name_brand.innerHTML = response.data.name_brand;
+        }
+        else
+        {
+          field_name_brand.classList.remove('is-invalid');
+          feedback_name_brand.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_strength))
+        {
+          field_drug_strength.classList.add('is-invalid');
+          feedback_drug_strength.innerHTML = response.data.drug_strength;
+        }
+        else
+        {
+          field_drug_strength.classList.remove('is-invalid');
+          feedback_drug_strength.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_strength_unit))
+        {
+          field_drug_strength_unit.classList.add('is-invalid');
+          feedback_drug_strength_unit.innerHTML = response.data.drug_strength_unit;
+        }
+        else
+        {
+          field_drug_strength_unit.classList.remove('is-invalid');
+          feedback_drug_strength_unit.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_dosage))
+        {
+          field_drug_dosage.classList.add('is-invalid');
+          feedback_drug_dosage.innerHTML = response.data.drug_dosage;
+        }
+        else
+        {
+          field_drug_dosage.classList.remove('is-invalid');
+          feedback_drug_dosage.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_type))
+        {
+          field_drug_type.classList.add('is-invalid');
+          feedback_drug_type.innerHTML = response.data.drug_type;
+        }
+        else
+        {
+          field_drug_type.classList.remove('is-invalid');
+          feedback_drug_type.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.date_manufactured))
+        {
+          field_date_manufactured.classList.add('is-invalid');
+          feedback_date_manufactured.innerHTML = response.data.date_manufactured;
+        }
+        else
+        {
+          field_date_manufactured.classList.remove('is-invalid');
+          feedback_date_manufactured.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.date_expiration))
+        {
+          field_date_expiration.classList.add('is-invalid');
+          feedback_date_expiration.innerHTML = response.data.date_expiration;
+        }
+        else
+        {
+          field_date_expiration.classList.remove('is-invalid');
+          feedback_date_expiration.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.quantity))
+        {
+          field_quantity.classList.add('is-invalid');
+          feedback_quantity.innerHTML = response.data.quantity;
+        }
+        else
+        {
+          field_quantity.classList.remove('is-invalid');
+          feedback_quantity.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_manufacturer))
+        {
+          field_drug_manufacturer.classList.add('is-invalid');
+          feedback_drug_manufacturer.innerHTML = response.data.drug_manufacturer;
+        }
+        else
+        {
+          field_drug_manufacturer.classList.remove('is-invalid');
+          feedback_drug_manufacturer.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_mnemonic))
+        {
+          field_drug_mnemonic.classList.add('is-invalid');
+          feedback_drug_mnemonic.innerHTML = response.data.drug_mnemonic;
+        }
+        else
+        {
+          field_drug_mnemonic.classList.remove('is-invalid');
+          feedback_drug_mnemonic.innerHTML = '';
+        }
+        
+        if (!isNullOrWhitespace(response.data.drug_synonym))
+        {
+          field_drug_synonym.classList.add('is-invalid');
+          feedback_drug_synonym.innerHTML = response.data.drug_synonym;
+        }
+        else
+        {
+          field_drug_synonym.classList.remove('is-invalid');
+          feedback_drug_synonym.innerHTML = '';
+        }
+      }
+    }
+  }
+
+  let data = jsonifyForm(document.forms['drugModalForm']);
+  xhr.send(data);
+}
+
 function isNullOrWhitespace(str) { return (str == null) || (str.trim().length < 1); }
 
 function jsonifyForm(form)

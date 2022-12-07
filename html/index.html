@@ -234,8 +234,8 @@
                   <div class="form-floating mb-3">
                     <input type="text" class="form-control" name="name_generic" id="name_generic" placeholder="Generic Name">
                     <label for="name_generic">Generic Name</label>
+                    <div class="invalid-feedback"></div>
                   </div>
-                  <div class="invalid-feedback"></div>
                 </div>
                 <!-- Brand Name -->
                 <div class="col-md-6">
@@ -353,7 +353,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" onclick="addDrug()">Save changes</button>
           </div>
         </div>
       </div>
