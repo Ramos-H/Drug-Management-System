@@ -143,7 +143,8 @@
                           DRUG_INV.DRUG_DATE_EXP as "EXPIRY_DAYS",
                           DRUG_INV.DRUG_QUANTITY
                   FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
-                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO';
+                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO
+                  ORDER BY DRUG_INV.DRUG_DATE_EXP';
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute();
     if(!$exec_success) { return false; }
