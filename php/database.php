@@ -126,7 +126,8 @@
     $statement = 'SELECT DRUG_NAMES.DRUG_NAME_GEN, 
                           DRUG_INV.DRUG_QUANTITY
                   FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
-                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO AND DRUG_INV.DRUG_QUANTITY < 10';
+                  WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO AND DRUG_INV.DRUG_QUANTITY < 10
+                  ORDER BY DRUG_INV.DRUG_QUANTITY';
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute();
     if(!$exec_success) { return false; }
@@ -166,6 +167,4 @@
 
     return $result;
   }
-
-  // Running out: when quantity is less than 10
 ?>
