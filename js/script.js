@@ -170,7 +170,7 @@ function loadMainTable()
             if (key === 'INV_NO')
             {
               inv_no = value;
-              row.setAttribute('onclick', `viewEntry(${inv_no})`);
+              row.setAttribute('onclick', `showViewModal(${inv_no})`);
               continue;
             }
 
@@ -203,7 +203,7 @@ function loadMainTable()
         let updateButton = document.createElement('button');
         updateButton.appendChild(document.createTextNode('Update'));
         updateButton.setAttribute('type', 'button');
-        updateButton.setAttribute('onclick', `editEntry(event, ${inv_no})`);
+        updateButton.setAttribute('onclick', `showEditModal(event, ${inv_no})`);
         updateButton.classList.add('btn', 'btn-primary');
         
         let deleteButton = document.createElement('button');
@@ -228,7 +228,7 @@ function loadMainTable()
   xhr.send();
 }
 
-function viewEntry(inv_no)
+function showViewModal(inv_no)
 {
   loadDrugInModal(inv_no);
   setFormReadOnly(true);
@@ -238,14 +238,14 @@ function viewEntry(inv_no)
   document.getElementById('drugInfoCancelBtn').innerText = 'Close';
   confirmBtn.innerText = 'Edit';
 
-  confirmBtn.setAttribute('onclick', `editEntry(event, ${inv_no})`);
+  confirmBtn.setAttribute('onclick', `showEditModal(event, ${inv_no})`);
   
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.show();
 }
 
-function editEntry(event, inv_no)
+function showEditModal(event, inv_no)
 {
   event.stopPropagation();
 
@@ -570,7 +570,7 @@ function loadDrugExpireReport()
   xhr.send();
 }
 
-function showAddDrugModal()
+function showAddModal()
 {
   setFormReadOnly(false);
   document.forms['drugModalForm'].reset();
