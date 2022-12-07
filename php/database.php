@@ -77,7 +77,8 @@
     $statement = 'SELECT DRUG_MANUFACTURER, COUNT(DRUG_MANUFACTURER) AS "COUNT", 
                           CINT(ROUND(COUNT(DRUG_MANUFACTURER) / (select COUNT(*) from DRUG_INV) * 100)) AS "PERCENTAGE"
                   FROM DRUG_INV 
-                  GROUP BY DRUG_MANUFACTURER';
+                  GROUP BY DRUG_MANUFACTURER
+                  ORDER BY COUNT(DRUG_MANUFACTURER) DESC';
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute();
     if(!$exec_success) { return false; }
