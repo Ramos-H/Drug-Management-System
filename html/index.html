@@ -21,9 +21,6 @@
           <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false">Reports</button>
         </li>
         <div class="d-flex flex-row align-items-center justify-content-end ms-auto mx-4 my-1">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sanityModal">
-            Launch demo modal
-          </button>
           <a class="btn btn-primary">Log out</a>
         </div>
       </ul>
@@ -36,10 +33,8 @@
         <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
           <div class="d-flex flew-row py-2 gap-2">
             <button type="button" class="btn btn-primary">Select all/none</button>
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary" onclick="showAddModal()">Add</button>
-              <button type="button" class="btn btn-danger">Delete Selected</button>
-            </div>
+            <button type="button" class="btn btn-primary" onclick="showAddModal()">Add</button>
+            <button type="button" class="btn btn-danger">Delete Selected</button>
           </div>
           <table class="table table-striped table-hover table-bordered table-sm text-center align-middle">
             <thead>
