@@ -126,7 +126,7 @@ function requestRegister()
 
 function loadAllData()
 {
-  loadTable();
+  loadMainTable();
   loadDrugExpireReport();
   loadLowDrugReport();
   loadDrugTypeReport();
@@ -134,7 +134,7 @@ function loadAllData()
   loadInventoryReport();
 }
 
-function loadTable()
+function loadMainTable()
 {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/main_table.php', true);
@@ -210,20 +210,6 @@ function loadTable()
 
         // Append row to table
         main_table.appendChild(row);
-      }
-
-      // Refresh table styles
-      let tableContainer = main_table.parentElement;
-      let classes = [];
-      for (const value of tableContainer.classList.values())
-      {
-        classes.push(value);
-        tableContainer.classList.remove(value);
-      }
-
-      for (const value of classes)
-      {
-        tableContainer.classList.add(value);
       }
     }
   }
