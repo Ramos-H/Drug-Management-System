@@ -264,9 +264,7 @@ function loadDrugInModal(inv_no)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      console.log(xhr.responseText);
       let table = JSON.parse(xhr.responseText);
-      console.log(table);
 
       let field_name_generic = document.getElementById('name_generic');
       let field_name_brand = document.getElementById('name_brand');
@@ -507,6 +505,7 @@ function loadLowDrugReport()
 
 function loadDrugExpireReport()
 {
+  setFormValuesToLoading();
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/report_drug_expire.php', true);
   
@@ -576,6 +575,16 @@ function setFormReadOnly(value)
     {
       field.removeAttribute('readonly');
     }
+  }
+}
+
+function setFormValuesToLoading()
+{
+  let form = document.forms['drugModalForm'];
+  let fields = form.elements;
+  for (const field of fields)
+  {
+    field.value = 'Loading...';
   }
 }
 
