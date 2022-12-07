@@ -255,6 +255,7 @@ function deleteEntry(event, inv_no)
 
 function loadDrugInModal(inv_no)
 {
+  setFormValuesToLoading();
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/modal_drug_load.php', true);
   
@@ -505,7 +506,6 @@ function loadLowDrugReport()
 
 function loadDrugExpireReport()
 {
-  setFormValuesToLoading();
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/report_drug_expire.php', true);
   
@@ -557,6 +557,15 @@ function loadDrugExpireReport()
   xhr.send();
 }
 
+function showAddDrugModal()
+{
+  let modal = document.getElementById('drugInfoModal');
+  let modalObject = new bootstrap.Modal(modal);
+  document.forms['drugModalForm'].reset();
+  setFormReadOnly(false);
+  modalObject.show();
+}
+
 function setFormReadOnly(value)
 {
   let form = document.forms['drugModalForm'];
@@ -574,6 +583,10 @@ function setFormReadOnly(value)
     else
     {
       field.removeAttribute('readonly');
+      if (field.getAttribute('id') === 'drug_type')
+      {
+        field.removeAttribute('disabled');
+      }
     }
   }
 }
