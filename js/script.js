@@ -210,7 +210,7 @@ function loadMainTable()
         deleteButton.appendChild(document.createTextNode('Delete'));
         deleteButton.setAttribute('onclick', `deleteEntry(event, ${inv_no})`);
         deleteButton.setAttribute('type', 'button');
-        deleteButton.classList.add('btn', 'btn-primary');
+        deleteButton.classList.add('btn', 'btn-danger');
 
         btnGroup.appendChild(updateButton);
         btnGroup.appendChild(deleteButton);
