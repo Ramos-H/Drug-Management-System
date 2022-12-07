@@ -91,7 +91,8 @@
     $statement = 'SELECT DRUG_TYPE, COUNT(DRUG_TYPE) AS "COUNT", 
                           CINT(ROUND(COUNT(DRUG_TYPE) / (select COUNT(*) from DRUG_INFO) * 100)) AS "PERCENTAGE"
                   FROM DRUG_INFO 
-                  GROUP BY DRUG_TYPE';
+                  GROUP BY DRUG_TYPE
+                  ORDER BY COUNT(DRUG_TYPE) DESC';
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute();
     if(!$exec_success) { return false; }
