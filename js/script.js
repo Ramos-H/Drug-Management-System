@@ -231,19 +231,32 @@ function loadMainTable()
 function viewEntry(inv_no)
 {
   loadDrugInModal(inv_no);
-  let modal = document.getElementById('drugInfoModal');
   setFormReadOnly(true);
-  let modalObject = new bootstrap.Modal(modal);
+
+  let confirmBtn = document.getElementById('drugInfoConfirmBtn');
+  
+  document.getElementById('drugInfoCancelBtn').innerText = 'Close';
+  confirmBtn.innerText = 'Edit';
+
+  confirmBtn.setAttribute('onclick', `editEntry(event, ${inv_no})`);
+  
+  let modal = document.getElementById('drugInfoModal');
+  let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.show();
 }
 
 function editEntry(event, inv_no)
 {
   event.stopPropagation();
+
   loadDrugInModal(inv_no);
-  let modal = document.getElementById('drugInfoModal');
   setFormReadOnly(false);
-  let modalObject = new bootstrap.Modal(modal);
+  
+  document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
+  document.getElementById('drugInfoConfirmBtn').innerText = 'Save changes';
+
+  let modal = document.getElementById('drugInfoModal');
+  let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.show();
 }
 
@@ -559,11 +572,22 @@ function loadDrugExpireReport()
 
 function showAddDrugModal()
 {
-  let modal = document.getElementById('drugInfoModal');
-  let modalObject = new bootstrap.Modal(modal);
-  document.forms['drugModalForm'].reset();
   setFormReadOnly(false);
+  document.forms['drugModalForm'].reset();
+
+  document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
+  document.getElementById('drugInfoConfirmBtn').innerText = 'Add new drug';
+
+  let modal = document.getElementById('drugInfoModal');
+  let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.show();
+}
+
+function hideModal()
+{
+  let modal = document.getElementById('drugInfoModal');
+  let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
+  modalObject.hide();
 }
 
 function setFormReadOnly(value)
