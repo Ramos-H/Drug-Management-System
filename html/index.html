@@ -21,7 +21,7 @@
           <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false">Reports</button>
         </li>
         <div class="d-flex flex-row align-items-center justify-content-end ms-auto mx-4 my-1">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#drugInfoModal">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sanityModal">
             Launch demo modal
           </button>
           <a class="btn btn-primary">Log out</a>
@@ -354,6 +354,31 @@
           <div class="modal-footer">
             <button type="button" id="drugInfoCancelBtn" class="btn btn-secondary" onclick="hideModal()">Close</button>
             <button type="button" id="drugInfoConfirmBtn" class="btn btn-primary" onclick="addDrug()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sanity Check Modal -->
+    <div class="modal fade" id="sanityModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sanityModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="sanityModalLabel">Confirmation</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+
+          </div>
+
+          <div class="modal-footer">
+            <div class="container">
+              <div class="row gap-2">
+                <button type="button" id="sanityCancelBtn" class="btn col btn-secondary">No</button>
+                <button type="button" id="sanityConfirmBtn" class="btn col btn-primary">Yes</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
