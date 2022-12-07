@@ -309,6 +309,7 @@ function setFormValuesToLoading()
 
 function showViewModal(inv_no)
 {
+  hideSanityModal();
   loadDrugInModal(inv_no);
   setFormReadOnly(true);
 
@@ -324,32 +325,43 @@ function showViewModal(inv_no)
   modalObject.show();
 }
 
-function showEditModal(event, inv_no)
+function showEditModal(event = null, inv_no = null)
 {
-  event.stopPropagation();
+  if(event !== null) { event.stopPropagation(); }
 
-  loadDrugInModal(inv_no);
+  hideSanityModal();
+  if(inv_no !== null) { loadDrugInModal(inv_no); }
   setFormReadOnly(false);
   
   document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
-  document.getElementById('drugInfoConfirmBtn').innerText = 'Save changes';
+  const confirmBtn = document.getElementById('drugInfoConfirmBtn');
+  confirmBtn.innerText = 'Save changes';
+  confirmBtn.setAttribute('onclick', 'showEditDrugSanityModal()');
 
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
   modalObject.show();
 }
 
-function showAddModal()
+function showAddModal(shouldReset = true)
 {
+  hideSanityModal();
   setFormReadOnly(false);
-  document.forms['drugModalForm'].reset();
+  if (shouldReset)
+  {
+    document.forms['drugModalForm'].reset();
+  }
+
+  let drugInfoModal = document.getElementById('drugInfoModal');
+  let drugInfoModalObject = bootstrap.Modal.getOrCreateInstance(drugInfoModal);
+  drugInfoModalObject.hide();
 
   let confirmBtn = document.getElementById('drugInfoConfirmBtn');
 
   document.getElementById('drugInfoCancelBtn').innerText = 'Cancel';
   confirmBtn.innerText = 'Add new drug';
 
-  confirmBtn.setAttribute('onclick', `addDrug()`);
+  confirmBtn.setAttribute('onclick', `showAddDrugSanityModal()`);
 
   let modal = document.getElementById('drugInfoModal');
   let modalObject = bootstrap.Modal.getOrCreateInstance(modal);
@@ -378,10 +390,15 @@ function addDrug()
       let response = JSON.parse(xhr.response);
       if (response.status === 'SUCCESS')
       {
-        console.log(response.data);
+        document.getElementById('sanityBody').innerText = response.data;
+        document.getElementById('sanityFooter').classList.add('d-none');
       }
       else if (response.status === 'FAILURE')
       {
+        document.getElementById('sanityBody').innerText = response.data;
+        document.getElementById('sanityCancelBtn').innerText = 'Go back';
+        document.getElementById('sanityConfirmBtn').classList.add('d-none');
+
         let field_name_generic = document.getElementById('name_generic');
         let field_name_brand = document.getElementById('name_brand');
         let field_drug_strength = document.getElementById('drug_strength');
@@ -552,6 +569,43 @@ function deleteEntry(event, inv_no)
 {
   event.stopPropagation();
   alert('Delete: ' + inv_no);
+}
+
+function resetSanityModal()
+{
+  document.getElementById('sanityCancelBtn').classList.remove('d-none');
+  document.getElementById('sanityConfirmBtn').classList.remove('d-none');
+  document.getElementById('sanityFooter').classList.remove('d-none');
+}
+
+function showAddDrugSanityModal()
+{
+  hideDrugModal();
+  resetSanityModal();
+
+  let sanityBody = document.getElementById('sanityBody');
+  sanityBody.innerText = 'Are you sure you want to add this drug?';
+  document.getElementById('sanityCancelBtn').setAttribute('onclick', 'showAddModal(false)');
+  document.getElementById('sanityConfirmBtn').setAttribute('onclick', 'addDrug()');
+
+  let sanityModal = document.getElementById('sanityModal');
+  let sanityModalObject = bootstrap.Modal.getOrCreateInstance(sanityModal);
+  sanityModalObject.show();
+}
+
+function showEditDrugSanityModal()
+{
+  hideDrugModal();
+  resetSanityModal();
+
+  let sanityBody = document.getElementById('sanityBody');
+  sanityBody.innerText = 'Are you sure you want to save your changes to this drug?';
+  document.getElementById('sanityCancelBtn').setAttribute('onclick', 'showEditModal()');
+  document.getElementById('sanityConfirmBtn').setAttribute('onclick', 'alert(\'Edit drug here!\')');
+
+  let sanityModal = document.getElementById('sanityModal');
+  let sanityModalObject = bootstrap.Modal.getOrCreateInstance(sanityModal);
+  sanityModalObject.show();
 }
 
 function hideSanityModal()
