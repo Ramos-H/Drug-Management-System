@@ -125,6 +125,11 @@
   {
     $op_result['data'] = $errors;
   }
+  elseif($op_result['status'] === 'SUCCESS')
+  {
+    $op_result['data'] = print_r($_POST,true);
+    insert_new_drug($_POST);
+  }
 
   echo json_encode($op_result);
 ?>

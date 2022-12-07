@@ -196,14 +196,68 @@
     return $result;
   }
 
-  function insert_new_drug()
+  function insert_new_drug($values)
+  {
+    $name_num = insert_new_name($values['drug_mnemonic'], $values['name_generic'], $values['name_brand'], $values['drug_synonym']);
+    $drug_num = insert_new_drug_info($name_num, $values['drug_strength'], $values['drug_strength_unit'], $values['drug_dosage'], $values['drug_type']);
+    global $db;
+    $statement = 'INSERT INTO DRUG_INV (DRUG_NO, DRUG_MANUFACTURER, DRUG_DATE_MAN, DRUG_DATE_EXP, DRUG_QUANTITY)
+                  VALUES (?, ?, ?, ?, ?)';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_num, $values['drug_manufacturer'], $values['date_manufactured'], $values['date_expiration'], $values['quantity']]);
+    return $exec_success;
+  }
+
+  function insert_new_name($drug_mnemonic, $name_generic, $name_brand, $drug_synonym)
   {
     global $db;
-    $statement = 'INSERT INTO ';
+    $statement = 'INSERT INTO DRUG_NAMES (DRUG_MNEMONIC, DRUG_NAME_GEN, DRUG_NAME_BRAND, DRUG_SYNONYM) 
+                  VALUES (?, ?, ?, ?)';
     $prepped_stmt = $db->prepare($statement);
-    $exec_success = $prepped_stmt->execute();
+    $exec_success = $prepped_stmt->execute([$drug_mnemonic, $name_generic, $name_brand, $drug_synonym]);
     if(!$exec_success) { return false; }
-    $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED)[0];
+    return get_name_num($drug_mnemonic, $name_generic, $name_brand, $drug_synonym);
+  }
+  
+  function get_name_num($drug_mnemonic, $name_generic, $name_brand, $drug_synonym)
+  {
+    global $db;
+    $statement = 'SELECT NAME_NO FROM DRUG_NAMES 
+                  WHERE DRUG_MNEMONIC = ?
+                        AND DRUG_NAME_GEN = ?
+                        AND DRUG_NAME_BRAND = ?
+                        AND DRUG_SYNONYM = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_mnemonic, $name_generic, $name_brand, $drug_synonym]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NUM)[0][0];
+    return $result;
+  }
+
+  function insert_new_drug_info($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type)
+  {
+    global $db;
+    $statement = 'INSERT INTO DRUG_INFO (NAME_NO, DRUG_STRENGTH, STRENGTH_UNIT, DRUG_DOSE, DRUG_TYPE)
+                  VALUES (?, ?, ?, ?, ?)';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type]);
+    if(!$exec_success) { return false; }
+    return get_drug_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type);
+  }
+
+  function get_drug_num($name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type)
+  {
+    global $db;
+    $statement = 'SELECT DRUG_NO FROM DRUG_INFO 
+                  WHERE NAME_NO = ?
+                        AND DRUG_STRENGTH = ?
+                        AND STRENGTH_UNIT = ?
+                        AND DRUG_DOSE = ?
+                        AND DRUG_TYPE = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$name_num, $drug_strength, $strength_unit, $drug_dose, $drug_type]);
+    if(!$exec_success) { return false; }
+    $result = $prepped_stmt->fetchAll(PDO::FETCH_NUM)[0][0];
     return $result;
   }
 ?>

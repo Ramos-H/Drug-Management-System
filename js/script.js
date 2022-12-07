@@ -613,7 +613,11 @@ function addDrug()
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let response = JSON.parse(xhr.response);
-      if (response.status === 'FAILURE')
+      if (response.status === 'SUCCESS')
+      {
+        console.log(response.data);
+      }
+      else if (response.status === 'FAILURE')
       {
         let field_name_generic = document.getElementById('name_generic');
         let field_name_brand = document.getElementById('name_brand');
