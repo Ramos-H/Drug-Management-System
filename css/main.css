@@ -2,12 +2,7 @@ body {
   background-color: #D8EEFD;
 }
 
-.tablestyle {
-  border: 1px solid;
-  border-color: black;
-}
-
-.tablehead{
+.report-header {
   color:white;
   background-color: #2176FF;
 }

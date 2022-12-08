@@ -9,7 +9,8 @@
     <!-- Bootstrap CSS v5.2.1 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     
-    <link href="../css/drugreport-style.css" rel="stylesheet">
+    <link href="../css/main.css" rel="stylesheet">
+    <link href="../css/table.css" rel="stylesheet">
   </head>
 
   <body class="p-2">
@@ -38,22 +39,22 @@
             <button type="button" class="btn btn-primary" onclick="showAddModal()">Add</button>
             <button type="button" class="btn btn-danger" id="deleteBtn" onclick="showMassDeleteSanityModal()">Delete Selected</button>
           </div>
-          <table class="table table-striped table-hover table-bordered table-sm text-center align-middle">
-            <thead>
+          <table class="table table-striped table-hover table-bordered table-sm text-center align-middle table-style">
+            <thead class="align-middle">
               <tr>
-                <td></td>
-                <td>Generic Name</td>
-                <td>Manufacturing Date</td>
-                <td>Order Date</td>
-                <td>Expiration Date</td>
-                <td>Drug Strength</td>
-                <td>Drug Unit</td>
-                <td>Drug Type</td>
-                <td>Quantity</td>
-                <td>Operation</td>
+                <th></th>
+                <th>Generic Name</th>
+                <th>Manufacturing Date</th>
+                <th>Order Date</th>
+                <th>Expiration Date</th>
+                <th>Drug Strength</th>
+                <th>Drug Unit</th>
+                <th>Drug Type</th>
+                <th>Quantity</th>
+                <th>Operation</th>
               </tr>
             </thead>
-            <tbody id="main_table" class="table-group-divider">
+            <tbody id="main_table">
               <!-- Table Entry -->
               <tr>
                 <td><input type="checkbox"></td>
@@ -81,7 +82,7 @@
             <!-- Overall Tab Heading -->
             <div class="row">
               <div class="col-auto mx-auto">
-                <div class="card px-4 mb-4 tablehead">
+                <div class="card px-4 mb-4 report-header">
                   <h1>Drug Management System - Inventory Report</h1>
                 </div>
               </div>
@@ -97,8 +98,8 @@
               <!-- Drugs that are expiring -->
               <div class="col-md">
                 <h5 class="text-center">Drugs that are expiring</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
-                  <thead class="tablehead align-middle">
+                <table class="table table-striped table-bordered table-sm align-middle text-center table-style">
+                  <thead class="align-middle">
                     <tr>
                       <th>Drug Name</th>
                       <th>Manufacture Date</th>
@@ -123,8 +124,8 @@
               <!-- Drugs that are running out (Quantity < 10) -->
               <div class="col-md">
                 <h5 class="text-center">Drugs that are running out (Quantity &lt; 10)</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
-                  <thead class="tablehead">
+                <table class="table table-striped table-bordered table-sm align-middle text-center table-style">
+                  <thead class="align-middle">
                     <tr>
                       <th>Drug Name</th>
                       <th>Quantity</th>
@@ -141,8 +142,8 @@
               <!-- Drugs that are of a certain type -->
               <div class="col-md">
                 <h5 class="text-center">Drugs that are of a certain type</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
-                  <thead class="tablehead">
+                <table class="table table-striped table-bordered table-sm align-middle text-center table-style">
+                  <thead class="align-middle">
                     <tr>
                       <th>Drug Type</th>
                       <th>Count</th>
@@ -161,8 +162,8 @@
               <!-- Drugs made by a certain manufacturer -->
               <div class="col-md">
                 <h5 class="text-center">Drugs made by a certain manufacturer</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
-                  <thead class="tablehead">
+                <table class="table table-striped table-bordered table-sm align-middle text-center table-style">
+                  <thead class="align-middle">
                     <tr>
                       <th>Manufacturer</th>
                       <th>Count</th>
@@ -187,8 +188,8 @@
                 </div>
               </div>
               <div class="col mx-auto">
-                <table class="table table-striped table-bordered text-center align-middle tablestyle">
-                  <thead class="tablehead">
+                <table class="table table-striped table-bordered text-center align-middle table-style">
+                  <thead class="align-middle">
                     <th>Inventory No.</th>
                     <th>Generic Name</th>
                     <th>Drug Strength</th>
