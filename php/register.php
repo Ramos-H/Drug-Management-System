@@ -10,16 +10,17 @@
     $_POST = json_decode(base64_decode(array_keys($_POST)[0]), true);
   }
 
-  $username = isset($_POST['username']) ? trim($_POST['username']) : null;
-  $password = $_POST['password'] ?? null;
+  $username         = isset($_POST['username'])  ? trim($_POST['username']) : null;
+  $password         = $_POST['password']         ?? null;
   $confirm_password = $_POST['confirm_password'] ?? null;
 
-  $has_username = !check_str_empty($username);
-  $has_password = !check_str_empty($password);
+  $has_username         = !check_str_empty($username);
+  $has_password         = !check_str_empty($password);
   $has_confirm_password = !check_str_empty($confirm_password);
 
   $username_too_long   = $has_username ? (strlen($username) > MAX_LENGTH_USERNAME) : false;
-  $username_has_spaces = $has_username ? has_whitespace($username) : false;
+  $username_has_spaces = $has_username ? has_whitespace($username)                 : false;
+  $username_is_taken   = $has_username ? check_user_exists($username)              : false;
 
   // Passwords are not max char limited because having more characters actually help.
   // See: https://stackoverflow.com/a/98786
@@ -56,14 +57,19 @@
     $errors['username'] = 'Please enter a username.';
     $auth_result['status'] = 'FAILURE';
   }
-  else if($username_too_long)
+  elseif($username_too_long)
   {
     $errors['username'] = sprintf('Your username cannot be longer than %d characters. Please remove %d characters to continue.', MAX_LENGTH_USERNAME, strlen($username) - MAX_LENGTH_USERNAME);
     $auth_result['status'] = 'FAILURE';
   }
-  else if($username_has_spaces)
+  elseif($username_has_spaces)
   {
     $errors['username'] = 'Your username cannot have any spaces.';
+    $auth_result['status'] = 'FAILURE';
+  }
+  elseif ($username_is_taken) 
+  {
+    $errors['username'] = 'Username already taken. Please enter a different one.';
     $auth_result['status'] = 'FAILURE';
   }
 
@@ -72,7 +78,7 @@
     $errors['password'] = 'Please enter a password.';
     $auth_result['status'] = 'FAILURE';
   }
-  else if($password_too_short)
+  elseif($password_too_short)
   {
     $errors['password'] = sprintf('Your password cannot be shorter than %d characters. Please add at least %d more characters to continue. ', MIN_LENGTH_PASSWORD, MIN_LENGTH_PASSWORD - strlen($password));
     $auth_result['status'] = 'FAILURE';
@@ -83,7 +89,7 @@
     $errors['confirm_password'] = 'Please enter your password again.';
     $auth_result['status'] = 'FAILURE';
   }
-  else if(!$confirm_password_matches)
+  elseif(!$confirm_password_matches)
   {
     $errors['confirm_password'] = 'Your password and confirm password fields do not match.';
     $auth_result['status'] = 'FAILURE';
