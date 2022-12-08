@@ -1,102 +1,11 @@
-ion-icon {
-    font-size: 20px;
-}
-
 .form-control {
-    outline: none;
-    box-shadow:none !important;
-    border:1px solid #ccc !important;
-    background-color: #ffde59;
-    
-}
-
-.btn{
-    padding: 5px 40px;
-}
-
-#btn1{
-    padding: 5px 50px;
-    background-color:#2176FF;
-    border-width: 0px;
-}
-
-#btn1:hover{
-    background:#2176FF;
-}
-
-#btn2{
-    padding: 5px 50px;
-    background-color:#F79824;
-    border-width: 0px;
-    color: white;
-}
-
-#btn2:hover{
-    background:#F79824;
-}
-
-
-#view{
-    padding: 5px 10px;
-    
-    background-color:#2176FF;
-    border-width: 0px;
-}
-
-#update{
-    padding: 5px 10px;
-    background-color:#F79824;
-    border-width: 0px;
-}
-
-#delete{
-    padding: 5px 10px;
-    background-color:#FF1616;
-    border-width: 0px;
-}
-
-#add{
-    padding: 5px 35px;
-    background-color:#2176FF;
-    border-width: 0px;
-}
-
-#generateReport{
-    padding: 5px 35px;
-    background-color:#2176FF;
-    border-width: 0px;
-}
-
-.container-fluid{
-    max-width: 25rem;
-}
-
-.table {
-    width: auto;
-    float: left;
-    text-align: center;
-    border-collapse: separate;
-    border-spacing: 10px;
-}
-
-#tableData{
-    background-color:#FFDE59;
-}
-
-#tableRows{
-    background-color: #2176FF;
-    color:white;
-}
-
-#genericName{
     background-color: #FFDE59;
+}
+
+#goBackBtn {
+    background-color: #F79824;
 }
 
 body{
     background-color: #D8EEFD;
-}
-
-.col{
-    height:300px;
-    overflow-y: auto;
 }
