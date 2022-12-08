@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Index</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    
+    <link href="../css/drugreport-style.css" rel="stylesheet">
+   
+    <style>
+      body{
+        background-color: #D8EEFD;
+        overflow: auto;
+      }
+      tr{
+        text-align: center;
+      }
+    </style>
+
+  </head>
+
+  <body class="p-2">
+    <header>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" id="indexTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false">Reports</button>
+        </li>
+        <div class="d-flex flex-row align-items-center justify-content-end ms-auto mx-4 my-1">
+          <a class="btn btn-primary" >Log out</a>
+        </div>
+      </ul>
+    </header>
+
+    <main>
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <!-- Home tab -->
+        <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="d-flex flew-row py-2 gap-2">
+            <button type="button" class="btn btn-primary" id="selectBtn" onclick="toggleMassSelect()">Select all</button>
+            <button type="button" class="btn btn-primary" onclick="showAddModal()">Add</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn" onclick="showMassDeleteSanityModal()">Delete Selected</button>
+          </div>
+          <table class="table table-striped table-hover table-bordered table-sm text-center align-middle">
+            <thead>
+              <tr>
+                <td></td>
+                <td>Generic Name</td>
+                <td>Manufacturing Date</td>
+                <td>Order Date</td>
+                <td>Expiration Date</td>
+                <td>Drug Strength</td>
+                <td>Drug Unit</td>
+                <td>Drug Type</td>
+                <td>Quantity</td>
+                <td>Operation</td>
+              </tr>
+            </thead>
+            <tbody id="main_table" class="table-group-divider">
+              <!-- Table Entry -->
+              <tr>
+                <td><input type="checkbox"></td>
+                <td class="text-start">Paracetamol</td>
+                <td>2021-11-4</td>
+                <td>2021-11-5</td>
+                <td>2022-12-6</td>
+                <td>500</td>
+                <td>mg</td>
+                <td>Capsule</td>
+                <td>10</td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-primary" >Update</button>
+                    <button type="button" class="btn btn-danger">Delete</button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Reports tab -->
+        <div class="tab-pane" id="reports" role="tabpanel" aria-labelledby="reports-tab">
+          <div class="container-fluid pt-2">
+            <div class="row">
+              <div class="col-auto mx-auto">
+                <div class="card px-4" style="background-color:#2176FF; color: white">
+                  <h1>Drug Management System - Inventory Report</h1>
+                </div>
+              </div>
+            </div>
+            <!-- Summary -->
+            <div class="row">
+              <!-- Heading -->
+              <div class="row">
+                <div class="col-auto mx-auto">
+                  <h2>Summary</h2>
+                </div>
+              </div>
+              <!-- Drugs that are expiring -->
+              <div class="col-md">
+                <h5 class="text-center">Drugs that are expiring</h5>
+                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
+                  <thead class="tablehead">
+                    <tr>
+                      <th>Drug Name</th>
+                      <th>Manufacture Date</th>
+                      <th>Order Date</th>
+                      <th>Expiration Date</th>
+                      <th>Days Before Expiration</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report_drug_expire" class="tablebody">
+                    <tr>
+                      <td class="text-start">Paracetamol</td>
+                      <td>11-05-2021</td>
+                      <td>11-06-2021</td>
+                      <td>12-07-2022</td>
+                      <td>356</td>
+                      <td>100</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Drugs that are running out (Quantity < 10) -->
+              <div class="col-md">
+                <h5 class="text-center">Drugs that are running out (Quantity &lt; 10)</h5>
+                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
+                  <thead class="tablehead">
+                    <tr>
+                      <th>Drug Name</th>
+                      <th>Quantity</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report_drug_low" class="tablebody">
+                    <tr>
+                      <td class="text-start">Paracetamol</td>
+                      <td>100</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Drugs that are of a certain type -->
+              <div class="col-md">
+                <h5 class="text-center">Drugs that are of a certain type</h5>
+                <table class="table table-striped table-bordered table-sm align-middle text-center">
+                  <thead class="tablehead">
+                    <tr>
+                      <th>Drug Type</th>
+                      <th>Count</th>
+                      <th>Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report_drug_type" class="tablebody">
+                    <tr>
+                      <td class="text-start">Capsule</td>
+                      <td>100</td>
+                      <td>50%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Drugs made by a certain manufacturer -->
+              <div class="col-md">
+                <h5 class="text-center">Drugs made by a certain manufacturer</h5>
+                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
+                  <thead class="tablehead">
+                    <tr>
+                      <th>Manufacturer</th>
+                      <th>Count</th>
+                      <th>Percentage</th>
+                    </tr>
+                  </thead>
+                  <tbody id="report_manufacturer" class="tablebody">
+                    <tr>
+                      <td class="text-start">Unilab</td>
+                      <td>100</td>
+                      <td>50%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- Full -->
+            <div class="row">
+              <div class="row">
+                <div class="col-auto mx-auto">
+                  <h2>Full Inventory</h2>
+                </div>
+              </div>
+              <div class="col mx-auto">
+                <table class="table table-striped table-bordered text-center align-middle" id="tablestyle">
+                  <thead class="tablehead">
+                    <th>Inventory No.</th>
+                    <th>Generic Name</th>
+                    <th>Drug Strength</th>
+                    <th>Strength Unit</th>
+                    <th>Type</th>
+                    <th>Manufacturer</th>
+                    <th>Manufacture Date</th>
+                    <th>Order Date</th>
+                    <th>Expiration Date</th>
+                    <th>Quantity</th>
+                  </thead>
+                  <tbody id="report_drug_inventory" class="tablebody">
+                    <td>1</td>
+                    <td>Paracetamol</td>
+                    <td>500</td>
+                    <td>mg</td>
+                    <td>Tablet</td>
+                    <td>Unilab</td>
+                    <td>11-05-2021</td>
+                    <td>11-06-2021</td>
+                    <td>12-07-2022</td>
+                    <td>100</td>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Drug Info Modal -->
+    <div class="modal fade" id="drugInfoModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="drugInfoModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="drugInfoModalLabel">About this drug</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+            <form id="drugModalForm">
+              <h3>Basic Info</h3>
+
+              <div class="row">
+                <!-- Generic Name -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="name_generic" id="name_generic" placeholder="Generic Name">
+                    <label for="name_generic">Generic Name</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Brand Name -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="name_brand" id="name_brand" placeholder="Brand Name">
+                    <label for="name_brand">Brand Name</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Drug Strength -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" name="drug_strength" id="drug_strength" placeholder="Drug Strength" value="1" min="0" max="1000000">
+                    <label for="drug_strength">Drug Strength</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Drug Strength Unit -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="drug_strength_unit" id="drug_strength_unit" placeholder="Drug Strength Unit">
+                    <label for="drug_strength_unit">Drug Strength Unit</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Drug Dosage -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" name="drug_dosage" id="drug_dosage" placeholder="Drug Dosage" value="1" min="0" max="1000000">
+                    <label for="drug_dosage">Drug Dosage</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Drug Type -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <select name="drug_type" id="drug_type" class="form-select">
+                      <option value="Capsule">Capsule</option>
+                      <option value="Tablet">Tablet</option>
+                      <option value="Liquid">Liquid</option>
+                      <option value="Topical">Topical</option>
+                      <option value="Suppository">Suppository</option>
+                      <option value="Drop">Drop</option>
+                      <option value="Inhaler">Inhaler</option>
+                      <option value="Patch">Patch</option>
+                    </select>
+                    <label for="drug_type">Drug Type</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Date Manufactured -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" name="date_manufactured" id="date_manufactured" placeholder="Date Manufactured">
+                    <label for="date_manufactured">Date Manufactured</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Date Ordered -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" name="date_ordered" id="date_ordered" placeholder="Date Ordered">
+                    <label for="date_ordered">Date Ordered</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Date Expiration -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" name="date_expiration" id="date_expiration" placeholder="Date Expiration">
+                    <label for="date_expiration">Date Expiration</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Quantity -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" name="quantity" id="quantity" placeholder="Quantity" value="1" min="0" max="1000000">
+                    <label for="quantity">Quantity</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <!-- Drug Manufacturer -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="drug_manufacturer" id="drug_manufacturer" placeholder="Drug Manufacturer">
+                    <label for="drug_manufacturer">Drug Manufacturer</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <h3>Additional name info</h3>
+              <div class="row">
+                <p class="text-muted">The information here is used to make search results more accurate.</p>
+                <!-- Drug Mneumonic -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="drug_mnemonic" id="drug_mnemonic" placeholder="Drug Mneumonic">
+                    <label for="drug_mnemonic">Drug Mneumonic</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+                <!-- Drug Synonym -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" name="drug_synonym" id="drug_synonym" placeholder="Drug Synonym">
+                    <label for="drug_synonym">Drug Synonym</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" id="drugInfoCancelBtn" class="btn btn-secondary" onclick="hideDrugModal()">Close</button>
+            <button type="button" id="drugInfoConfirmBtn" class="btn btn-primary" onclick="addDrug()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sanity Check Modal -->
+    <div class="modal fade" id="sanityModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="sanityModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="sanityModalLabel">Confirmation</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div id="sanityBody" class="modal-body align-middle text-center"></div>
+
+          <div id="sanityFooter" class="modal-footer">
+            <div class="container">
+              <div class="row gap-2">
+                <button type="button" id="sanityCancelBtn" class="btn col btn-secondary" onclick="hideSanityModal()">No</button>
+                <button type="button" id="sanityConfirmBtn" class="btn col btn-primary">Yes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+
+    <script src="../js/script.js" onload="loadAllData()"></script>
+  </body>
+</html>

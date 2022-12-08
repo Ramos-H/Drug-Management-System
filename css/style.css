@@ -27,6 +27,9 @@
     background:#f1cd3b
 }
 
+.btn btn-primary{
+   background-color: #F79824;
+}
 
 #view{
     padding: 5px 10px;
@@ -80,4 +83,9 @@
 
 #genericName{
     background-color: #DECDFF;
+}
+
+.col{
+    height:300px;
+    overflow-y: auto;
 }
