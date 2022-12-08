@@ -146,6 +146,16 @@ function loadMainTable()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('main_table');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -651,6 +661,17 @@ function loadManufacturerReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_manufacturer');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
+
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -695,6 +716,16 @@ function loadDrugTypeReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_type');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -739,6 +770,16 @@ function loadInventoryReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_inventory');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -802,6 +843,16 @@ function loadLowDrugReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_low');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -842,6 +893,16 @@ function loadDrugExpireReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_expire');
+      clearTable(main_table);
+      showTableLoading(main_table);
+
+      if (table.length < 1)
+      {
+        showEmptyTableMessage(main_table);
+        return;
+      }
+
+      setTableStatusVisibility(main_table, false);
       for (const entry of table)
       {
         let row = document.createElement('tr');
@@ -913,6 +974,37 @@ function setFieldState(value, field, feedback)
   }
 }
 
+function showTableLoading(table)
+{
+  setTableStatusVisibility(table, true);
+  table.getElementsByClassName('load_indicator')[0].classList.remove('d-none');
+  table.getElementsByClassName('empty_results_message')[0].classList.add('d-none');
+}
 
-// convert the json to use ascii only, then convert that to base 64
-// convert from base64, then convert ascii to back unicode
+function showEmptyTableMessage(table)
+{
+  setTableStatusVisibility(table, true);
+  table.getElementsByClassName('load_indicator')[0].classList.add('d-none');
+  table.getElementsByClassName('empty_results_message')[0].classList.remove('d-none');
+}
+
+function setTableStatusVisibility(table, value)
+{
+  const classList = table.getElementsByClassName('table_status')[0].classList;
+  if (value)
+  {
+    classList.remove('d-none');
+  }
+  else
+  {
+    classList.add('d-none');
+  }
+}
+
+function clearTable(table)
+{
+  while (table.children.length > 1)
+  {
+    table.children.pop();
+  }
+}

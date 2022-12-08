@@ -55,22 +55,17 @@
               </tr>
             </thead>
             <tbody id="main_table">
-              <!-- Table Entry -->
               <tr>
-                <td><input type="checkbox"></td>
-                <td class="text-start">Paracetamol</td>
-                <td>2021-11-4</td>
-                <td>2021-11-5</td>
-                <td>2022-12-6</td>
-                <td>500</td>
-                <td>mg</td>
-                <td>Capsule</td>
-                <td>10</td>
-                <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-primary">Update</button>
-                    <button type="button" class="btn btn-danger">Delete</button>
+                <td class="table_status" colspan="10">
+                  <!-- Loading Indicator -->
+                  <div class="m-auto d-inline-flex align-middle load_indicator">
+                    <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                    Loading...
                   </div>
+
+                  <div class="empty_results_message d-none">No entries are present in the database</div>
                 </td>
               </tr>
             </tbody>
@@ -111,12 +106,17 @@
                   </thead>
                   <tbody id="report_drug_expire" class="tablebody">
                     <tr>
-                      <td class="text-start">Paracetamol</td>
-                      <td>11-05-2021</td>
-                      <td>11-06-2021</td>
-                      <td>12-07-2022</td>
-                      <td>356</td>
-                      <td>100</td>
+                      <td class="table_status" colspan="6">
+                        <!-- Loading Indicator -->
+                        <div class="m-auto d-inline-flex align-middle load_indicator">
+                          <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading...
+                        </div>
+      
+                        <div class="empty_results_message d-none">No drugs were found that match the specified criteria.</div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -133,8 +133,17 @@
                   </thead>
                   <tbody id="report_drug_low" class="tablebody">
                     <tr>
-                      <td class="text-start">Paracetamol</td>
-                      <td>100</td>
+                      <td class="table_status" colspan="2">
+                        <!-- Loading Indicator -->
+                        <div class="m-auto d-inline-flex align-middle load_indicator">
+                          <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading...
+                        </div>
+      
+                        <div class="empty_results_message d-none">No drugs were found that match the specified criteria.</div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -152,9 +161,17 @@
                   </thead>
                   <tbody id="report_drug_type" class="tablebody">
                     <tr>
-                      <td class="text-start">Capsule</td>
-                      <td>100</td>
-                      <td>50%</td>
+                      <td class="table_status" colspan="3">
+                        <!-- Loading Indicator -->
+                        <div class="m-auto d-inline-flex align-middle load_indicator">
+                          <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading...
+                        </div>
+      
+                        <div class="empty_results_message d-none">No entries are present in the database.</div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -172,9 +189,17 @@
                   </thead>
                   <tbody id="report_manufacturer" class="tablebody">
                     <tr>
-                      <td class="text-start">Unilab</td>
-                      <td>100</td>
-                      <td>50%</td>
+                      <td class="table_status" colspan="3">
+                        <!-- Loading Indicator -->
+                        <div class="m-auto d-inline-flex align-middle load_indicator">
+                          <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading...
+                        </div>
+      
+                        <div class="empty_results_message d-none">No entries are present in the database.</div>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -202,16 +227,19 @@
                     <th>Quantity</th>
                   </thead>
                   <tbody id="report_drug_inventory" class="tablebody">
-                    <td>1</td>
-                    <td>Paracetamol</td>
-                    <td>500</td>
-                    <td>mg</td>
-                    <td>Tablet</td>
-                    <td>Unilab</td>
-                    <td>11-05-2021</td>
-                    <td>11-06-2021</td>
-                    <td>12-07-2022</td>
-                    <td>100</td>
+                    <tr>
+                      <td class="table_status" colspan="10">
+                        <!-- Loading Indicator -->
+                        <div class="m-auto d-inline-flex align-middle load_indicator">
+                          <div class="spinner-border spinner-border-sm text-dark m-auto me-1" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                          </div>
+                          Loading...
+                        </div>
+      
+                        <div class="empty_results_message d-none">No entries are present in the database.</div>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
