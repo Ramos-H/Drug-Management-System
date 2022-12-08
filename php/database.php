@@ -20,7 +20,8 @@
     global $db;
     $statement = 'INSERT INTO USERS (USERNAME, PASSWORD) VALUES (?, ?)';
     $prepped_stmt = $db->prepare($statement);
-    return $prepped_stmt->execute([$username, $password]);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    return $prepped_stmt->execute([$username, $hashed_password]);
   }
   
   function check_user_exists($username)
@@ -47,7 +48,7 @@
 
     foreach ($result as $row) 
     {
-      if($row['PASSWORD'] === $password)
+      if(password_verify($password, $row['PASSWORD']))
       {
         return intval($row['USER_NO']);
       }
