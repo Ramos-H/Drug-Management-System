@@ -1,51 +1,42 @@
-ion-icon {
-    font-size: 20px;
-}
-
 .form-control {
-    outline: none;
-    box-shadow:none !important;
-    border:1px solid #ccc !important;
-    background-color: #ffde59;
-    
+    background-color: #FFDE59;
 }
 
-.btn{
-    padding: 5px 40px;
+#goBackBtn {
+    background-color: #F79824;
 }
 
 #btn1{
     padding: 5px 50px;
-    background-color:#2176FF;
+    background-color:#004AAD;
     border-width: 0px;
 }
 
 #btn1:hover{
-    background:#2176FF;
+    background:#012c64
 }
 
 #btn2{
     padding: 5px 50px;
-    background-color:#F79824;
+    background-color:#ffde59;
     border-width: 0px;
-    color: white;
+    color: black;
 }
 
 #btn2:hover{
-    background:#F79824;
+    background:#f1cd3b
 }
 
 
 #view{
     padding: 5px 10px;
-    
-    background-color:#2176FF;
+    background-color:#004AAD;
     border-width: 0px;
 }
 
 #update{
     padding: 5px 10px;
-    background-color:#F79824;
+    background-color:#008037;
     border-width: 0px;
 }
 
@@ -57,13 +48,13 @@ ion-icon {
 
 #add{
     padding: 5px 35px;
-    background-color:#2176FF;
+    background-color:#008037;
     border-width: 0px;
 }
 
 #generateReport{
     padding: 5px 35px;
-    background-color:#2176FF;
+    background-color:#008037;
     border-width: 0px;
 }
 
@@ -80,23 +71,13 @@ ion-icon {
 }
 
 #tableData{
-    background-color:#FFDE59;
+    background-color:#ECE3FF;
 }
 
 #tableRows{
-    background-color: #2176FF;
-    color:white;
+    background-color: #BB99FF;
 }
 
 #genericName{
-    background-color: #FFDE59;
-}
-
-body{
-    background-color: #D8EEFD;
-}
-
-.col{
-    height:300px;
-    overflow-y: auto;
+    background-color: #DECDFF;
 }
