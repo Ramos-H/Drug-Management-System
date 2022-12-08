@@ -156,6 +156,7 @@ function loadMainTable()
         let checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
         checkbox.setAttribute('id', inv_no);
+        checkbox.setAttribute('onclick', 'setMultiOperationButtonsState(event)');
         let checkboxCell = document.createElement('td');
         checkboxCell.appendChild(checkbox);
         row.appendChild(checkboxCell);
@@ -221,6 +222,57 @@ function loadMainTable()
     }
   }
   xhr.send();
+}
+
+function getSelectedEntries()
+{
+  let table = document.getElementById('main_table').getElementsByTagName('input');
+  let inv_nums = [];
+  for (let item of table) {
+    if (item.getAttribute('type') === 'checkbox') {
+      let inv_num = item.getAttribute('id');
+      if (!isNullOrWhitespace(inv_num) && item.checked) {
+        inv_nums.push(inv_num);
+      }
+    }
+  }
+  return inv_nums;
+}
+
+function setMultiOperationButtonsState(event = null)
+{
+  if (event !== null) { event.stopPropagation(); }
+
+  let selected = getSelectedEntries();
+  let selectBtn = document.getElementById('selectBtn');
+  let deleteBtn = document.getElementById('deleteBtn');
+  if (selected.length > 0)
+  {
+    selectBtn.innerText = 'Select none';
+    deleteBtn.classList.remove('d-none');
+  }
+  else
+  {
+    selectBtn.innerText = 'Select all';
+    deleteBtn.classList.add('d-none');
+  }
+}
+
+function toggleMassSelect()
+{
+  let selected = getSelectedEntries();
+  let table = document.getElementById('main_table').getElementsByTagName('input');
+  let newValue = !(selected.length > 0);
+
+  for (let item of table)
+  {
+    if (item.getAttribute('type') === 'checkbox' && !isNullOrWhitespace(item.getAttribute('id')))
+    {
+      item.checked = newValue;
+    }
+  }
+
+  setMultiOperationButtonsState();
 }
 
 // DRUG INFO MODAL
@@ -517,21 +569,7 @@ function deleteDrugs(inv_nums)
 // SANITY CHECK MODAL
 function showMassDeleteSanityModal()
 {
-  let table = document.getElementById('main_table').getElementsByTagName('input');
-  let inv_nums = [];
-  for (let item of table)
-  {
-    if (item.getAttribute('type') === 'checkbox')
-    {
-      let inv_num = item.getAttribute('id');
-      if (!isNullOrWhitespace(inv_num) && item.checked)
-      {
-        inv_nums.push(inv_num);
-        console.log(item);
-      }
-    }
-  }
-
+  let inv_nums = getSelectedEntries();
   showDeleteSanityModal(null, inv_nums);
 }
 
