@@ -1,11 +1,12 @@
+body {
+  background-color: #D8EEFD;
+}
+
 .form-control {
     background-color: #FFDE59;
 }
 
-#goBackBtn {
-    background-color: #F79824;
-}
-
-body{
-    background-color: #D8EEFD;
+.report-header {
+  color:white;
+  background-color: #2176FF;
 }
