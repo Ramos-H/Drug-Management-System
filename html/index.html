@@ -42,6 +42,7 @@
                 <td></td>
                 <td>Generic Name</td>
                 <td>Manufacturing Date</td>
+                <td>Order Date</td>
                 <td>Expiration Date</td>
                 <td>Drug Strength</td>
                 <td>Drug Unit</td>
@@ -56,7 +57,8 @@
                 <td><input type="checkbox"></td>
                 <td class="text-start">Paracetamol</td>
                 <td>2021-11-4</td>
-                <td>2022-12-5</td>
+                <td>2021-11-5</td>
+                <td>2022-12-6</td>
                 <td>500</td>
                 <td>mg</td>
                 <td>Capsule</td>
@@ -97,6 +99,7 @@
                     <tr>
                       <th>Drug Name</th>
                       <th>Manufacture Date</th>
+                      <th>Order Date</th>
                       <th>Expiration Date</th>
                       <th>Days Before Expiration</th>
                       <th>Quantity</th>
@@ -106,7 +109,8 @@
                     <tr>
                       <td class="text-start">Paracetamol</td>
                       <td>11-05-2021</td>
-                      <td>12-06-2022</td>
+                      <td>11-06-2021</td>
+                      <td>12-07-2022</td>
                       <td>356</td>
                       <td>100</td>
                     </tr>
@@ -189,6 +193,7 @@
                     <th>Type</th>
                     <th>Manufacturer</th>
                     <th>Manufacture Date</th>
+                    <th>Order Date</th>
                     <th>Expiration Date</th>
                     <th>Quantity</th>
                   </thead>
@@ -200,7 +205,8 @@
                     <td>Tablet</td>
                     <td>Unilab</td>
                     <td>11-05-2021</td>
-                    <td>12-06-2022</td>
+                    <td>11-06-2021</td>
+                    <td>12-07-2022</td>
                     <td>100</td>
                   </tbody>
                 </table>
@@ -223,6 +229,7 @@
           <div class="modal-body">
             <form id="drugModalForm">
               <h3>Basic Info</h3>
+
               <div class="row">
                 <!-- Generic Name -->
                 <div class="col-md-6">
@@ -241,6 +248,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
                 <!-- Drug Strength -->
                 <div class="col-md-6">
@@ -259,6 +267,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
                 <!-- Drug Dosage -->
                 <div class="col-md-6">
@@ -286,6 +295,7 @@
                   </div>
                 </div>
               </div>
+
               <div class="row">
                 <!-- Date Manufactured -->
                 <div class="col-md-6">
@@ -295,6 +305,17 @@
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
+                <!-- Date Ordered -->
+                <div class="col-md-6">
+                  <div class="form-floating mb-3">
+                    <input type="date" class="form-control" name="date_ordered" id="date_ordered" placeholder="Date Ordered">
+                    <label for="date_ordered">Date Ordered</label>
+                    <div class="invalid-feedback"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
                 <!-- Date Expiration -->
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
@@ -303,8 +324,6 @@
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
-              </div>
-              <div class="row">
                 <!-- Quantity -->
                 <div class="col-md-6">
                   <div class="form-floating mb-3">
@@ -313,6 +332,9 @@
                     <div class="invalid-feedback"></div>
                   </div>
                 </div>
+              </div>
+
+              <div class="row">
                 <!-- Drug Manufacturer -->
                 <div class="col-md-6">
                   <div class="form-floating mb-3">

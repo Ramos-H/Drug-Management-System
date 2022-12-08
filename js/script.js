@@ -177,7 +177,7 @@ function loadMainTable()
             }
             
             let valueText = null;
-            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_EXP')
+            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
             {
               valueText = document.createTextNode(value.split(' ')[0]);
             }
@@ -290,30 +290,32 @@ function loadDrugInModal(inv_no)
     {
       let table = JSON.parse(atob(xhr.responseText));
 
-      let field_name_generic = document.getElementById('name_generic');
-      let field_name_brand = document.getElementById('name_brand');
-      let field_drug_strength = document.getElementById('drug_strength');
+      let field_name_generic       = document.getElementById('name_generic');
+      let field_name_brand         = document.getElementById('name_brand');
+      let field_drug_strength      = document.getElementById('drug_strength');
       let field_drug_strength_unit = document.getElementById('drug_strength_unit');
-      let field_drug_dosage = document.getElementById('drug_dosage');
-      let field_drug_type = document.getElementById('drug_type');
-      let field_date_manufactured = document.getElementById('date_manufactured');
-      let field_date_expiration = document.getElementById('date_expiration');
-      let field_quantity = document.getElementById('quantity');
-      let field_drug_manufacturer = document.getElementById('drug_manufacturer');
-      let field_drug_mnemonic = document.getElementById('drug_mnemonic');
-      let field_drug_synonym = document.getElementById('drug_synonym');
+      let field_drug_dosage        = document.getElementById('drug_dosage');
+      let field_drug_type          = document.getElementById('drug_type');
+      let field_date_manufactured  = document.getElementById('date_manufactured');
+      let field_date_ordered       = document.getElementById('date_ordered');
+      let field_date_expiration    = document.getElementById('date_expiration');
+      let field_quantity           = document.getElementById('quantity');
+      let field_drug_manufacturer  = document.getElementById('drug_manufacturer');
+      let field_drug_mnemonic      = document.getElementById('drug_mnemonic');
+      let field_drug_synonym       = document.getElementById('drug_synonym');
 
-      field_name_generic.value = table.DRUG_NAME_GEN;
-      field_name_brand.value = table.DRUG_NAME_BRAND;
-      field_drug_strength.value = table.DRUG_STRENGTH;
+      field_name_generic.value       = table.DRUG_NAME_GEN;
+      field_name_brand.value         = table.DRUG_NAME_BRAND;
+      field_drug_strength.value      = table.DRUG_STRENGTH;
       field_drug_strength_unit.value = table.STRENGTH_UNIT;
-      field_drug_dosage.value = table.DRUG_DOSE;
-      field_drug_type.selectedIndex = field_drug_type.options.namedItem(table.DRUG_TYPE);
-      field_date_manufactured.value = table.DRUG_DATE_MAN.split(" ")[0];
-      field_date_expiration.value = table.DRUG_DATE_EXP.split(" ")[0];
-      field_quantity.value = table.DRUG_QUANTITY;
-      field_drug_manufacturer.value = table.DRUG_MANUFACTURER;
-      field_drug_mnemonic.value = table.DRUG_MNEMONIC;
+      field_drug_dosage.value        = table.DRUG_DOSE;
+      field_drug_type.selectedIndex  = field_drug_type.options.namedItem(table.DRUG_TYPE);
+      field_date_manufactured.value  = table.DRUG_DATE_MAN.split(" ")[0];
+      field_date_ordered.value       = table.DRUG_DATE_ORDER.split(" ")[0];
+      field_date_expiration.value    = table.DRUG_DATE_EXP.split(" ")[0];
+      field_quantity.value           = table.DRUG_QUANTITY;
+      field_drug_manufacturer.value  = table.DRUG_MANUFACTURER;
+      field_drug_mnemonic.value      = table.DRUG_MNEMONIC;
       field_drug_synonym.value = table.DRUG_SYNONYM;
     }
   }
@@ -450,6 +452,7 @@ function validateDrugForm(inv_no = -1)
         let field_drug_dosage        = document.getElementById('drug_dosage');
         let field_drug_type          = document.getElementById('drug_type');
         let field_date_manufactured  = document.getElementById('date_manufactured');
+        let field_date_ordered       = document.getElementById('date_ordered');
         let field_date_expiration    = document.getElementById('date_expiration');
         let field_quantity           = document.getElementById('quantity');
         let field_drug_manufacturer  = document.getElementById('drug_manufacturer');
@@ -463,6 +466,7 @@ function validateDrugForm(inv_no = -1)
         let feedback_drug_dosage        = field_drug_dosage        .parentElement.getElementsByClassName('invalid-feedback')[0];
         let feedback_drug_type          = field_drug_type          .parentElement.getElementsByClassName('invalid-feedback')[0];
         let feedback_date_manufactured  = field_date_manufactured  .parentElement.getElementsByClassName('invalid-feedback')[0];
+        let feedback_date_ordered       = field_date_ordered       .parentElement.getElementsByClassName('invalid-feedback')[0];
         let feedback_date_expiration    = field_date_expiration    .parentElement.getElementsByClassName('invalid-feedback')[0];
         let feedback_quantity           = field_quantity           .parentElement.getElementsByClassName('invalid-feedback')[0];
         let feedback_drug_manufacturer  = field_drug_manufacturer  .parentElement.getElementsByClassName('invalid-feedback')[0];
@@ -476,6 +480,7 @@ function validateDrugForm(inv_no = -1)
         setFieldState(response.data.drug_dosage,        field_drug_dosage,        feedback_drug_dosage);
         setFieldState(response.data.drug_type,          field_drug_type,          feedback_drug_type);
         setFieldState(response.data.date_manufactured,  field_date_manufactured,  feedback_date_manufactured);
+        setFieldState(response.data.date_ordered,       field_date_ordered,       feedback_date_ordered);
         setFieldState(response.data.date_expiration,    field_date_expiration,    feedback_date_expiration);
         setFieldState(response.data.quantity,           field_quantity,           feedback_quantity);
         setFieldState(response.data.drug_manufacturer,  field_drug_manufacturer,  feedback_drug_manufacturer);
@@ -759,7 +764,7 @@ function loadInventoryReport()
             }
             
             let valueText = null;
-            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_EXP')
+            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
             {
               valueText = document.createTextNode(value.split(' ')[0]);
             }
@@ -870,7 +875,7 @@ function loadDrugExpireReport()
             }
 
             let valueText = null;
-            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_EXP')
+            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
             {
               valueText = document.createTextNode(value.split(' ')[0]);
             }
