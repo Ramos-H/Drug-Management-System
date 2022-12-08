@@ -149,15 +149,16 @@ function loadMainTable()
       for (const entry of table)
       {
         let row = document.createElement('tr');
+        let inv_no = entry['INV_NO'];
+        row.setAttribute('onclick', `showViewModal(${inv_no})`);
 
         // Add checkbox
         let checkbox = document.createElement('input');
         checkbox.setAttribute('type', 'checkbox');
+        checkbox.setAttribute('id', inv_no);
         let checkboxCell = document.createElement('td');
         checkboxCell.appendChild(checkbox);
         row.appendChild(checkboxCell);
-
-        let inv_no = null;
 
         // Add all property values
         for (let key in entry)
@@ -166,12 +167,7 @@ function loadMainTable()
           {
             let value = entry[key];
 
-            if (key === 'INV_NO')
-            {
-              inv_no = value;
-              row.setAttribute('onclick', `showViewModal(${inv_no})`);
-              continue;
-            }
+            if (key === 'INV_NO') { continue; }
 
             let column = document.createElement('td');
             if (key === 'DRUG_NAME_GEN')
@@ -207,7 +203,7 @@ function loadMainTable()
         
         let deleteButton = document.createElement('button');
         deleteButton.appendChild(document.createTextNode('Delete'));
-        deleteButton.setAttribute('onclick', `deleteEntry(event, ${inv_no})`);
+        deleteButton.setAttribute('onclick', `showDeleteSanityModal(event, [${inv_no}])`);
         deleteButton.setAttribute('type', 'button');
         deleteButton.classList.add('btn', 'btn-danger');
 
@@ -439,7 +435,7 @@ function validateDrugForm(inv_no = -1)
 
   let data = formToArray(document.forms['drugModalForm']);
   data['inv_num'] = inv_no;
-  xhr.send(JSON.stringify(data));
+  xhr.send(encodeURIComponent(JSON.stringify(data)));
 }
 
 function submitDrugForm(inv_no = -1)
@@ -473,14 +469,86 @@ function submitDrugForm(inv_no = -1)
 
   let data = formToArray(document.forms['drugModalForm']);
   data['inv_num'] = inv_no;
-  xhr.send(JSON.stringify(data));
+  xhr.send(encodeURIComponent(JSON.stringify(data)));
+}
+
+function deleteDrugs(inv_nums)
+{
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", '../php/delete_drugs.php', true);
+  
+  //Send the proper header information along with the request
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  
+  xhr.onreadystatechange = () => { // Call a function when the state changes.
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
+    {
+      console.log(xhr.response);
+      let response = JSON.parse(xhr.response);
+      if (response.status === 'SUCCESS')
+      {
+        document.getElementById('sanityBody').innerText = response.data;
+        document.getElementById('sanityFooter').classList.add('d-none');
+      }
+      else if (response.status === 'FAILURE')
+      {
+        document.getElementById('sanityBody').innerText = response.data;
+        document.getElementById('sanityCancelBtn').innerText = 'Go back';
+        document.getElementById('sanityConfirmBtn').classList.add('d-none');
+      }
+    }
+  }
+
+  let data = {};
+  for (let index = 0; index < inv_nums.length; index++)
+  {
+    let element = inv_nums[index].toString();
+    let idx = index.toString();
+    data[idx] = element.toString();
+    console.log(`idx: ${idx}`);
+    console.log(`element: ${element}`);
+  }
+
+  let result = JSON.stringify(data);
+  console.log(result);
+  xhr.send(encodeURIComponent(result));
 }
 
 // SANITY CHECK MODAL
-function deleteEntry(event, inv_no)
+function showMassDeleteSanityModal()
 {
-  event.stopPropagation();
-  alert('Delete: ' + inv_no);
+  let table = document.getElementById('main_table').getElementsByTagName('input');
+  let inv_nums = [];
+  for (let item of table)
+  {
+    if (item.getAttribute('type') === 'checkbox')
+    {
+      let inv_num = item.getAttribute('id');
+      if (!isNullOrWhitespace(inv_num) && item.checked)
+      {
+        inv_nums.push(inv_num);
+        console.log(item);
+      }
+    }
+  }
+
+  showDeleteSanityModal(null, inv_nums);
+}
+
+function showDeleteSanityModal(event, inv_nums)
+{
+  if(event !== null) { event.stopPropagation() };
+  hideDrugModal();
+  resetSanityModal();
+
+  let sanityBody = document.getElementById('sanityBody');
+  sanityBody.innerText = `Are you sure you want to delete ${(inv_nums.length > 1) ? 'the selected drugs' : 'this drug'}?`;
+  document.getElementById('sanityCancelBtn') .setAttribute('onclick', 'hideSanityModal()');
+  document.getElementById('sanityConfirmBtn').setAttribute('onclick', `deleteDrugs([${inv_nums}])`);
+
+  let sanityModal = document.getElementById('sanityModal');
+  let sanityModalObject = bootstrap.Modal.getOrCreateInstance(sanityModal);
+  sanityModalObject.show();
 }
 
 function resetSanityModal()

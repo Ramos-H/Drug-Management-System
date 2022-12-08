@@ -310,4 +310,36 @@
     $exec_success = $prepped_stmt->execute([$drug_mnemonic, $name_generic, $name_brand, $drug_synonym, $name_num]);
     return $exec_success;
   }
+
+  function delete_name($name_num)
+  {
+    global $db;
+    $statement = 'DELETE FROM DRUG_NAMES WHERE NAME_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$name_num]);
+    return $exec_success;
+  }
+
+  function delete_info($drug_num)
+  {
+    global $db;
+    $statement = 'DELETE FROM DRUG_INFO WHERE DRUG_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$drug_num]);
+    return $exec_success;
+  }
+
+  function delete_drug($inv_num)
+  {
+    $keys = get_primary_keys($inv_num);
+    
+    global $db;
+    $statement = 'DELETE FROM DRUG_INV WHERE INV_NO = ?';
+    $prepped_stmt = $db->prepare($statement);
+    $exec_success = $prepped_stmt->execute([$inv_num]);
+    if(!$exec_success) { return false; }
+    if(!delete_info($keys['DRUG_NO'])) { return false; }
+    if(!delete_name($keys['NAME_NO'])) { return false; }
+    return true;
+  }
 ?>
