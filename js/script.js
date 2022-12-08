@@ -524,6 +524,7 @@ function submitDrugForm(inv_no = -1)
       {
         document.getElementById('sanityBody').innerText = response.data;
         document.getElementById('sanityFooter').classList.add('d-none');
+        loadAllData();
       }
       else if (response.status === 'FAILURE')
       {
@@ -555,6 +556,7 @@ function deleteDrugs(inv_nums)
       {
         document.getElementById('sanityBody').innerText = response.data;
         document.getElementById('sanityFooter').classList.add('d-none');
+        loadAllData();
       }
       else if (response.status === 'FAILURE')
       {
@@ -1005,6 +1007,6 @@ function clearTable(table)
 {
   while (table.children.length > 1)
   {
-    table.children.pop();
+    table.lastElementChild.remove();
   }
 }
