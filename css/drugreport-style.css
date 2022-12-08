@@ -1,3 +1,17 @@
+
+
+#indexTabs{
+    width:100%;
+    background-image: linear-gradient(to right, #0e93ed, #D8EEFD);
+    margin-top: -10px;
+   padding-top: 10px;
+   padding-right: 10px;
+  margin-left: -8px;
+  margin-right:-5px;
+   padding-bottom: -5px;
+    
+
+}
 body{
     background-color: #D8EEFD;
 }
@@ -17,3 +31,25 @@ body{
     background-color: white;
     font-size: 1vw;
 }
+
+thead{
+    background-color: #2176FF;
+    color:white;
+}
+
+tbody{
+    background-color: #FFDE59;
+}
+
+#home-tab{
+ color: white;
+ background-color:#0e93ed
+ 
+ 
+}
+
+#reports-tab{
+    color:white;
+    background-color:#0e93ed
+}
+
