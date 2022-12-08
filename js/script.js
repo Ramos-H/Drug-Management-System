@@ -435,7 +435,7 @@ function validateDrugForm(inv_no = -1)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let response = JSON.parse(atob(xhr.response));
+      let response = JSON.parse(atob(xhr.responseText));
       if (response.status === 'SUCCESS')
       {
         if (inv_no > -1) { showEditDrugSanityModal(inv_no); }
@@ -535,7 +535,6 @@ function deleteDrugs(inv_nums)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      console.log(xhr.response);
       let response = JSON.parse(atob(xhr.response));
       if (response.status === 'SUCCESS')
       {
@@ -557,12 +556,9 @@ function deleteDrugs(inv_nums)
     let element = inv_nums[index].toString();
     let idx = index.toString();
     data[idx] = element.toString();
-    console.log(`idx: ${idx}`);
-    console.log(`element: ${element}`);
   }
 
   let result = btoa(JSON.stringify(data));
-  console.log(result);
   xhr.send(encodeURIComponent(result));
 }
 
