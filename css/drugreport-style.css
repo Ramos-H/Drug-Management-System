@@ -1,31 +1,13 @@
-body{
-    background-color: #D8EEFD;
+body {
+  background-color: #D8EEFD;
 }
-#col-md-style{
-    text-align: center;
-    height:200px;
-    overflow-y: auto;
+
+.tablestyle {
+  border: 1px solid;
+  border-color: black;
 }
-#col-mx-style{
-    text-align: center;
-    height:150px;
-    overflow-y: auto;
-}
-#tablestyle{
-    border: 1px solid;
-    border-collapse: collapse;
-    border-color: black;
-    align-items: center;
-    align-content: center;
-}
+
 .tablehead{
-    color:white;
-    background-color: #2176FF;
-    font-size: 1vw;
-    position: sticky;
-    top: 0;
-}
-.tablebody{
-    background-color: white;
-    font-size: 1vw;
+  color:white;
+  background-color: #2176FF;
 }

@@ -78,26 +78,27 @@
         <!-- Reports tab -->
         <div class="tab-pane" id="reports" role="tabpanel" aria-labelledby="reports-tab">
           <div class="container-fluid pt-2">
+            <!-- Overall Tab Heading -->
             <div class="row">
               <div class="col-auto mx-auto">
-                <div class="card px-4" style="background-color:#2176FF; color: white">
+                <div class="card px-4 mb-4 tablehead">
                   <h1>Drug Management System - Inventory Report</h1>
                 </div>
               </div>
             </div>
             <!-- Summary -->
-            <div class="row">
+            <div class="row mb-4">
               <!-- Heading -->
               <div class="row">
-                <div class="col-auto mx-auto">
+                <div class="col-auto mx-auto mb-1">
                   <h2>Summary</h2>
                 </div>
               </div>
               <!-- Drugs that are expiring -->
-              <div class="col-md" id="col-md-style">
+              <div class="col-md">
                 <h5 class="text-center">Drugs that are expiring</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
-                  <thead class="tablehead">
+                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
+                  <thead class="tablehead align-middle">
                     <tr>
                       <th>Drug Name</th>
                       <th>Manufacture Date</th>
@@ -120,9 +121,9 @@
                 </table>
               </div>
               <!-- Drugs that are running out (Quantity < 10) -->
-              <div class="col-md" id="col-md-style">
+              <div class="col-md">
                 <h5 class="text-center">Drugs that are running out (Quantity &lt; 10)</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
+                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
                   <thead class="tablehead">
                     <tr>
                       <th>Drug Name</th>
@@ -138,9 +139,9 @@
                 </table>
               </div>
               <!-- Drugs that are of a certain type -->
-              <div class="col-md" id="col-md-style">
+              <div class="col-md">
                 <h5 class="text-center">Drugs that are of a certain type</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center">
+                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
                   <thead class="tablehead">
                     <tr>
                       <th>Drug Type</th>
@@ -158,9 +159,9 @@
                 </table>
               </div>
               <!-- Drugs made by a certain manufacturer -->
-              <div class="col-md" id="col-md-style">
+              <div class="col-md">
                 <h5 class="text-center">Drugs made by a certain manufacturer</h5>
-                <table class="table table-striped table-bordered table-sm align-middle text-center" id="tablestyle">
+                <table class="table table-striped table-bordered table-sm align-middle text-center tablestyle">
                   <thead class="tablehead">
                     <tr>
                       <th>Manufacturer</th>
@@ -181,12 +182,12 @@
             <!-- Full -->
             <div class="row">
               <div class="row">
-                <div class="col-auto mx-auto">
+                <div class="col-auto mx-auto mb-1">
                   <h2>Full Inventory</h2>
                 </div>
               </div>
-              <div class="col mx-auto" id="col-mx-style">
-                <table class="table table-striped table-bordered text-center align-middle" id="tablestyle">
+              <div class="col mx-auto">
+                <table class="table table-striped table-bordered text-center align-middle tablestyle">
                   <thead class="tablehead">
                     <th>Inventory No.</th>
                     <th>Generic Name</th>

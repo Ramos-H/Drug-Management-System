@@ -662,10 +662,6 @@ function loadManufacturerReport()
           {
             let value = entry[key];
             let column = document.createElement('td');
-            if (key === 'DRUG_MANUFACTURER')
-            {
-              column.classList.add('text-start');
-            }
 
             if (key === 'PERCENTAGE')
             {
@@ -710,10 +706,6 @@ function loadDrugTypeReport()
           {
             let value = entry[key];
             let column = document.createElement('td');
-            if (key === 'DRUG_TYPE')
-            {
-              column.classList.add('text-start');
-            }
 
             if (key === 'PERCENTAGE')
             {
@@ -758,11 +750,7 @@ function loadInventoryReport()
           {
             let value = entry[key];
             let column = document.createElement('td');
-            if (key === 'DRUG_NAME_GEN')
-            {
-              column.classList.add('text-start');
-            }
-            
+
             let valueText = null;
             if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
             {
@@ -825,10 +813,6 @@ function loadLowDrugReport()
           {
             let value = entry[key];
             let column = document.createElement('td');
-            if (key === 'DRUG_NAME_GEN')
-            {
-              column.classList.add('text-start');
-            }
 
             let valueText = document.createTextNode(value);
             column.appendChild(valueText);
@@ -869,10 +853,6 @@ function loadDrugExpireReport()
           {
             let value = entry[key];
             let column = document.createElement('td');
-            if (key === 'DRUG_NAME_GEN')
-            {
-              column.classList.add('text-start');
-            }
 
             let valueText = null;
             if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
