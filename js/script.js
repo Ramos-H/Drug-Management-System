@@ -908,7 +908,7 @@ function formToArray(form)
   for (const element of inputs)
   {
     if (element.tagName.toLowerCase() === 'button') { continue; }
-    array[element.getAttribute('name')] = element.value;
+    array[element.getAttribute('name')] = element.value.trim();
   }
   return array;
 }
