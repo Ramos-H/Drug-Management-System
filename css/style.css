@@ -1,63 +1,94 @@
-.form-control {
-    background-color: #FFDE59;
+ion-icon {
+    font-size: 20px;
 }
 
-#goBackBtn {
+.navbar{
+    margin-bottom: -.5cm;
+}
+
+#homeNav{
+    background-color: #004AAD;
+    padding: 10px 40px;
+}
+   
+#reportsNav{
     background-color: #F79824;
+    padding: 10px 40px;
+    margin-left: 10px;
+}
+   
+#logoutNav{
+    background-color: #F79824;
+    padding: 10px 40px;
+    border-radius: 12px;
+}
+   
+
+.form-control {
+    outline: none;
+    box-shadow:none !important;
+    border:1px solid #ccc !important;
+    background-color: #ffde59;
+    
 }
 
-#btn1{
+body{
+    background-color: #D8EEFD;
+}
+
+.btn{
+    padding: 5px 40px;
+}
+
+#goBackBtn{
     padding: 5px 50px;
-    background-color:#004AAD;
+    background-color:#F79824;
     border-width: 0px;
 }
 
-#btn1:hover{
-    background:#012c64
-}
-
-#btn2{
-    padding: 5px 50px;
-    background-color:#ffde59;
-    border-width: 0px;
-    color: black;
-}
-
-#btn2:hover{
+#goBackBtn:hover{
     background:#f1cd3b
 }
 
-.btn btn-primary{
-   background-color: #F79824;
-}
-
-#view{
-    padding: 5px 10px;
-    background-color:#004AAD;
+#registerBtn, #loginbtn{
+    padding: 5px 50px;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
-#update{
+#registerBtn:hover, #loginBtn:hover{
+    background:#f1cd3b
+}
+
+
+#viewBtn{
     padding: 5px 10px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
-#delete{
+#updateBtn{
+    padding: 5px 10px;
+    background-color:#F79824;
+    border-width: 0px;
+}
+
+#deleteBtn{
     padding: 5px 10px;
     background-color:#FF1616;
     border-width: 0px;
 }
 
-#add{
+#addBtn{
     padding: 5px 35px;
-    background-color:#008037;
+    margin-left: 10px;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
-#generateReport{
+#generateReportBtn{
     padding: 5px 35px;
-    background-color:#008037;
+    background-color:#2176FF;
     border-width: 0px;
 }
 
@@ -74,18 +105,13 @@
 }
 
 #tableData{
-    background-color:#ECE3FF;
+    background-color:#f1cd3b;
 }
 
 #tableRows{
-    background-color: #BB99FF;
+    background-color: #2176FF;
 }
 
 #genericName{
-    background-color: #DECDFF;
-}
-
-.col{
-    height:300px;
-    overflow-y: auto;
+    background-color: #f1cd3b;
 }
