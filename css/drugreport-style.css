@@ -2,7 +2,7 @@
 
 #indexTabs{
     width:100%;
-    background-image: linear-gradient(to right, #0e93ed, #D8EEFD);
+    background-image: linear-gradient(to right, #0e93ed,#e3f2fc);
     margin-top: -10px;
    padding-top: 10px;
    padding-right: 10px;
@@ -43,13 +43,13 @@ tbody{
 
 #home-tab{
  color: white;
- background-color:#0e93ed
+ background-color:#2c9ce8;
  
  
 }
 
 #reports-tab{
     color:white;
-    background-color:#0e93ed
+    background-color:#2c9ce8;
 }
 
