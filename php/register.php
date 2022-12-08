@@ -7,7 +7,7 @@
   if($has_submitted)
   {
     // Decode JSON data from AJAX submission
-    $_POST = json_decode(array_keys($_POST)[0], true);
+    $_POST = json_decode(base64_decode(array_keys($_POST)[0]), true);
   }
 
   $username = isset($_POST['username']) ? trim($_POST['username']) : null;
@@ -18,7 +18,8 @@
   $has_password = !check_str_empty($password);
   $has_confirm_password = !check_str_empty($confirm_password);
 
-  $username_too_long = $has_username ? (strlen($username) > MAX_LENGTH_USERNAME) : false;
+  $username_too_long   = $has_username ? (strlen($username) > MAX_LENGTH_USERNAME) : false;
+  $username_has_spaces = $has_username ? has_whitespace($username) : false;
 
   // Passwords are not max char limited because having more characters actually help.
   // See: https://stackoverflow.com/a/98786
@@ -44,7 +45,7 @@
     echo '<br>';
   }
 
-  $auth_result = array('status' => '', 'data' => '');
+  $auth_result = array('status' => 'SUCCESS', 'data' => 'login.html');
   // Error reporting
   $errors = array('username' => '',
                   'password' => '',
@@ -58,6 +59,11 @@
   else if($username_too_long)
   {
     $errors['username'] = sprintf('Your username cannot be longer than %d characters. Please remove %d characters to continue.', MAX_LENGTH_USERNAME, strlen($username) - MAX_LENGTH_USERNAME);
+    $auth_result['status'] = 'FAILURE';
+  }
+  else if($username_has_spaces)
+  {
+    $errors['username'] = 'Your username cannot have any spaces.';
     $auth_result['status'] = 'FAILURE';
   }
 
@@ -83,21 +89,15 @@
     $auth_result['status'] = 'FAILURE';
   }
 
-  if($has_submitted && $has_username && $has_password && $has_confirm_password
-    && !$username_too_long && !$password_too_short && $confirm_password_matches)
-  {
-    insert_new_user($username, $password);
-    $auth_result['status'] = 'SUCCESS';
-  }
-
   if($auth_result['status'] === 'SUCCESS')
   {
-    $auth_result['data'] = 'login.html';
+    if(!insert_new_user($username, $password)) { $auth_result['status'] = 'FAILURE'; }
   }
-  else
+
+  if($auth_result['status'] === 'FAILURE')
   {
     $auth_result['data'] = $errors;
   }
 
-  echo json_encode($auth_result);
+  echo base64_encode(json_encode($auth_result));
 ?>

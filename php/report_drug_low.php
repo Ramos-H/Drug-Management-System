@@ -1,4 +1,4 @@
 <?php
 require_once 'database.php';
-echo json_encode(get_low_drug_count());
+echo base64_encode(json_encode(get_low_drug_count()));
 ?>

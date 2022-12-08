@@ -5,7 +5,7 @@
   if($has_submitted)
   {
     // Decode JSON data from AJAX submission
-    $_POST = json_decode(array_keys($_POST)[0], true);
+    $_POST = json_decode(base64_decode(array_keys($_POST)[0]), true);
   }
 
   $name_generic       = isset($_POST['name_generic'])       ? trim($_POST['name_generic'])       : null;

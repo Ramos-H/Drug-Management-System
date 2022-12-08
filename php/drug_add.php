@@ -14,5 +14,5 @@
     }
   }
 
-  echo json_encode($op_result);
+  echo base64_encode(json_encode($op_result));
 ?>

@@ -1,4 +1,4 @@
 <?php
 require_once 'database.php';
-echo json_encode(get_drug_expire_report());
+echo base64_encode(json_encode(get_drug_expire_report()));
 ?>

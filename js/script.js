@@ -10,7 +10,7 @@ function requestLogin()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let response = JSON.parse(xhr.responseText);
+      let response = JSON.parse(atob(xhr.responseText));
       if (response.status === 'SUCCESS')
       {
         window.location.href = response.data;
@@ -69,7 +69,7 @@ function requestRegister()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let response = JSON.parse(xhr.responseText);
+      let response = JSON.parse(atob(xhr.responseText));
       if (response.status === 'SUCCESS')
       {
         window.location.href = response.data;
@@ -144,7 +144,7 @@ function loadMainTable()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('main_table');
       for (const entry of table)
       {
@@ -288,7 +288,7 @@ function loadDrugInModal(inv_no)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
 
       let field_name_generic = document.getElementById('name_generic');
       let field_name_brand = document.getElementById('name_brand');
@@ -317,7 +317,7 @@ function loadDrugInModal(inv_no)
       field_drug_synonym.value = table.DRUG_SYNONYM;
     }
   }
-  xhr.send(JSON.stringify({inv_num : inv_no}));
+  xhr.send(btoa(JSON.stringify({inv_num : inv_no})));
 }
 
 function setFormReadOnly(value)
@@ -435,7 +435,7 @@ function validateDrugForm(inv_no = -1)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let response = JSON.parse(xhr.response);
+      let response = JSON.parse(atob(xhr.response));
       if (response.status === 'SUCCESS')
       {
         if (inv_no > -1) { showEditDrugSanityModal(inv_no); }
@@ -487,7 +487,7 @@ function validateDrugForm(inv_no = -1)
 
   let data = formToArray(document.forms['drugModalForm']);
   data['inv_num'] = inv_no;
-  xhr.send(encodeURIComponent(JSON.stringify(data)));
+  xhr.send(encodeURIComponent(btoa(JSON.stringify(data))));
 }
 
 function submitDrugForm(inv_no = -1)
@@ -504,7 +504,7 @@ function submitDrugForm(inv_no = -1)
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let response = JSON.parse(xhr.response);
+      let response = JSON.parse(atob(xhr.response));
       if (response.status === 'SUCCESS')
       {
         document.getElementById('sanityBody').innerText = response.data;
@@ -521,7 +521,7 @@ function submitDrugForm(inv_no = -1)
 
   let data = formToArray(document.forms['drugModalForm']);
   data['inv_num'] = inv_no;
-  xhr.send(encodeURIComponent(JSON.stringify(data)));
+  xhr.send(encodeURIComponent(btoa(JSON.stringify(data))));
 }
 
 function deleteDrugs(inv_nums)
@@ -536,7 +536,7 @@ function deleteDrugs(inv_nums)
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       console.log(xhr.response);
-      let response = JSON.parse(xhr.response);
+      let response = JSON.parse(atob(xhr.response));
       if (response.status === 'SUCCESS')
       {
         document.getElementById('sanityBody').innerText = response.data;
@@ -561,7 +561,7 @@ function deleteDrugs(inv_nums)
     console.log(`element: ${element}`);
   }
 
-  let result = JSON.stringify(data);
+  let result = btoa(JSON.stringify(data));
   console.log(result);
   xhr.send(encodeURIComponent(result));
 }
@@ -648,7 +648,7 @@ function loadManufacturerReport()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_manufacturer');
       for (const entry of table)
       {
@@ -696,7 +696,7 @@ function loadDrugTypeReport()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_type');
       for (const entry of table)
       {
@@ -744,7 +744,7 @@ function loadInventoryReport()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_inventory');
       for (const entry of table)
       {
@@ -811,7 +811,7 @@ function loadLowDrugReport()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_low');
       for (const entry of table)
       {
@@ -855,7 +855,7 @@ function loadDrugExpireReport()
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
-      let table = JSON.parse(xhr.responseText);
+      let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_expire');
       for (const entry of table)
       {
@@ -915,7 +915,7 @@ function formToArray(form)
 
 function jsonifyForm(form)
 {
-  return JSON.stringify(formToArray(form));
+  return btoa(JSON.stringify(formToArray(form)));
 }
 
 function setFieldState(value, field, feedback)
@@ -931,3 +931,7 @@ function setFieldState(value, field, feedback)
     feedback.innerHTML = '';
   }
 }
+
+
+// convert the json to use ascii only, then convert that to base 64
+// convert from base64, then convert ascii to back unicode
