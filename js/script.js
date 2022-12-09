@@ -833,6 +833,8 @@ function loadInventoryReport()
       {
         tableContainer.classList.add(value);
       }
+
+      document.getElementsByClassName('printBtn')[0].classList.remove('d-none');
     }
   }
   xhr.send();
