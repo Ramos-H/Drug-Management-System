@@ -365,6 +365,16 @@ function setFormReadOnly(value)
   }
 }
 
+function resetDrugModalFormState(value)
+{
+  let form = document.forms['drugModalForm'];
+  let fields = form.elements;
+  for (const field of fields)
+  {
+    field.classList.remove('is-invalid');
+  }
+}
+
 function setFormValuesToLoading()
 {
   let form = document.forms['drugModalForm'];
@@ -378,6 +388,7 @@ function setFormValuesToLoading()
 function showViewModal(inv_no)
 {
   hideSanityModal();
+  resetDrugModalFormState();
   loadDrugInModal(inv_no);
   setFormReadOnly(true);
 
@@ -398,6 +409,7 @@ function showEditModal(event = null, inv_no = -1)
   if(event !== null) { event.stopPropagation(); }
 
   hideSanityModal();
+  resetDrugModalFormState();
   if(inv_no > -1) { loadDrugInModal(inv_no); }
   setFormReadOnly(false);
   
@@ -414,6 +426,7 @@ function showEditModal(event = null, inv_no = -1)
 function showAddModal(shouldReset = true)
 {
   hideSanityModal();
+  resetDrugModalFormState();
   setFormReadOnly(false);
   if (shouldReset)
   {
