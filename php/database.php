@@ -311,9 +311,10 @@
                       ,DRUG_DATE_MAN = ?
                       ,DRUG_DATE_ORDER = ?
                       ,DRUG_DATE_EXP = ?
+                      ,DRUG_QUANTITY = ?
                   WHERE INV_NO = ?';
     $prepped_stmt = $db->prepare($statement);
-    $exec_success = $prepped_stmt->execute([$values['drug_manufacturer'], $values['date_manufactured'], $values['date_ordered'], $values['date_expiration'], $values['inv_num']]);
+    $exec_success = $prepped_stmt->execute([$values['drug_manufacturer'], $values['date_manufactured'], $values['date_ordered'], $values['date_expiration'], $values['quantity'], $values['inv_num']]);
     return $exec_success;
   }
 
