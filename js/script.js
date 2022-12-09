@@ -679,11 +679,11 @@ function loadManufacturerReport()
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  let main_table = document.getElementById('report_manufacturer');
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('report_manufacturer');
 
       if (table.length < 1)
       {
@@ -734,11 +734,11 @@ function loadDrugTypeReport()
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  let main_table = document.getElementById('report_drug_type');
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('report_drug_type');
 
       if (table.length < 1)
       {
@@ -788,11 +788,11 @@ function loadInventoryReport()
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  let main_table = document.getElementById('report_drug_inventory');
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('report_drug_inventory');
 
       if (table.length < 1)
       {
@@ -849,11 +849,11 @@ function loadLowDrugReport()
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  let main_table = document.getElementById('report_drug_low');
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('report_drug_low');
 
       if (table.length < 1)
       {
@@ -899,11 +899,11 @@ function loadDrugExpireReport()
   //Send the proper header information along with the request
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
   
+  let main_table = document.getElementById('report_drug_expire');
   xhr.onreadystatechange = () => { // Call a function when the state changes.
     if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
     {
       let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('report_drug_expire');
 
       if (table.length < 1)
       {
