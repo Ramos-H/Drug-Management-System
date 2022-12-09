@@ -97,13 +97,14 @@
         </div>
         <!-- Reports tab -->
         <div class="tab-pane" id="reports" role="tabpanel" aria-labelledby="reports-tab">
-          <div class="container-fluid pt-2">
+          <div id="report_page" class="container-fluid pt-2">
             <!-- Overall Tab Heading -->
             <div class="row">
               <div class="col-auto mx-auto">
                 <div class="card px-4 mb-4 report-header">
                   <h1>Drug Management System - Inventory Report</h1>
                 </div>
+                <button type="button" class="btn btn-primary printBtn" onclick="printReport()">Print</button>
               </div>
             </div>
             <!-- Summary -->
@@ -454,11 +455,14 @@
         </div>
       </div>
     </div>
-    <script src="../js/auth.js" onload="authRedirect()"></script>
-    <!-- Bootstrap JavaScript Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
 
-    <script src="../js/script.js"></script>
+    <footer>
+      <script src="../js/auth.js" onload="authRedirect()"></script>
+      <!-- Bootstrap JavaScript Libraries -->
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+  
+      <script src="../js/script.js"></script>
+    </footer>
   </body>
 </html>

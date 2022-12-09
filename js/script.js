@@ -949,6 +949,16 @@ function loadDrugExpireReport()
   showTableLoading(main_table);
 }
 
+function printReport()
+{
+  let original = document.body.innerHTML;
+  let main = document.body.getElementsByTagName('main')[0].cloneNode(true);
+  main.getElementsByClassName('printBtn')[0].remove();
+  document.body.innerHTML = main.innerHTML;
+  print();
+  document.body.innerHTML = original;
+}
+
 // UTILITIES
 
 function isNullOrWhitespace(str) { return (str == null) || (str.trim().length < 1); }

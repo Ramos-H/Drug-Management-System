@@ -1,8 +1,5 @@
 function authRedirect()
 {
-  let body = document.body.innerHTML;
-  document.body.innerHTML = '';
-
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/auth_redirect.php', true);
   
@@ -15,9 +12,7 @@ function authRedirect()
       let response = JSON.parse(xhr.responseText);
       if (response.status === 'SUCCESS')
       {
-        document.body.innerHTML = body;
         document.body.classList.remove('d-none');
-        document.body.onload();
       }
       else
       {
