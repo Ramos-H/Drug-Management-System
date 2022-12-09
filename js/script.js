@@ -820,20 +820,6 @@ function loadInventoryReport()
         main_table.appendChild(row);
       }
 
-      // Refresh table styles
-      let tableContainer = main_table.parentElement;
-      let classes = [];
-      for (const value of tableContainer.classList.values())
-      {
-        classes.push(value);
-        tableContainer.classList.remove(value);
-      }
-
-      for (const value of classes)
-      {
-        tableContainer.classList.add(value);
-      }
-
       document.getElementsByClassName('printBtn')[0].classList.remove('d-none');
     }
   }
