@@ -1,5 +1,7 @@
 <?php
   require_once 'constants.php';
+  require_once 'utils.php';
+
   if(!file_exists(DB_PATH)) { die('Database file could not be found.'); }
 
   $conn_str = sprintf('odbc:Driver={Microsoft Access Driver (*.mdb, *.accdb)}; Dbq=%s;', realpath(DB_PATH));
@@ -57,24 +59,60 @@
     return -1;
   }
 
-  function get_main_table()
+  function get_main_table($query)
   {
     global $db;
     $statement = 'SELECT DRUG_INV.INV_NO
-                          ,DRUG_NAMES.DRUG_NAME_GEN
-                          ,DRUG_INV.DRUG_DATE_MAN
-                          ,DRUG_INV.DRUG_DATE_ORDER
-                          ,DRUG_INV.DRUG_DATE_EXP
-                          ,DRUG_INFO.DRUG_STRENGTH
-                          ,DRUG_INFO.STRENGTH_UNIT
-                          ,DRUG_INFO.DRUG_TYPE
-                          ,DRUG_INV.DRUG_QUANTITY 
+                        ,DRUG_NAMES.DRUG_NAME_GEN
+                        ,DRUG_INV.DRUG_DATE_MAN
+                        ,DRUG_INV.DRUG_DATE_ORDER
+                        ,DRUG_INV.DRUG_DATE_EXP
+                        ,DRUG_INFO.DRUG_STRENGTH
+                        ,DRUG_INFO.STRENGTH_UNIT
+                        ,DRUG_INFO.DRUG_TYPE
+                        ,DRUG_INV.DRUG_QUANTITY
+                        ,DRUG_NAMES.DRUG_NAME_BRAND
+                        ,DRUG_NAMES.DRUG_MNEMONIC
+                        ,DRUG_NAMES.DRUG_SYNONYM
+                        ,DRUG_INV.DRUG_MANUFACTURER
                   FROM DRUG_INV, DRUG_INFO, DRUG_NAMES
                   WHERE DRUG_INV.DRUG_NO = DRUG_INFO.DRUG_NO AND DRUG_INFO.NAME_NO = DRUG_NAMES.NAME_NO';
+
     $prepped_stmt = $db->prepare($statement);
     $exec_success = $prepped_stmt->execute();
     if(!$exec_success) { return false; }
     $result = $prepped_stmt->fetchAll(PDO::FETCH_NAMED);
+
+    if(!check_str_empty($query))
+    {
+      foreach ($result as $key => &$value) 
+      {
+        $gen_match      = str_contains(strtoupper($value['DRUG_NAME_GEN']),     strtoupper($query));
+        $brand_match    = str_contains(strtoupper($value['DRUG_NAME_BRAND']),   strtoupper($query));
+        $mnemonic_match = str_contains(strtoupper($value['DRUG_MNEMONIC']),     strtoupper($query));
+        $synonym_match  = str_contains(strtoupper($value['DRUG_SYNONYM']),      strtoupper($query));
+        $man_match      = str_contains(strtoupper($value['DRUG_MANUFACTURER']), strtoupper($query));
+
+        $has_match = $gen_match || $brand_match || $mnemonic_match || $synonym_match || $man_match;
+
+        if(!$has_match)
+        {
+          unset($result[$key]);
+          // $value['DRUG_NAME_BRAND'] = sprintf('RESULT: %s, %s, %s, %s, %s, %s, %s', $query, bool_to_str($has_match), bool_to_str($gen_match), bool_to_str($brand_match), bool_to_str($mnemonic_match), bool_to_str($synonym_match), bool_to_str($man_match));
+        }
+      }
+      unset($value);
+    }
+    
+    foreach ($result as $key => &$value) 
+    {
+      unset($value['DRUG_NAME_BRAND']);
+      unset($value['DRUG_MNEMONIC']);
+      unset($value['DRUG_SYNONYM']);
+      unset($value['DRUG_MANUFACTURER']);
+    }
+    unset($value);
+    
     return $result;
   }
 

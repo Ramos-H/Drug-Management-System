@@ -133,7 +133,7 @@ function loadAllData()
   loadInventoryReport();
 }
 
-function loadMainTable()
+function loadMainTable(query = '')
 {
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '../php/main_table.php', true);
@@ -231,7 +231,10 @@ function loadMainTable()
       }
     }
   }
-  xhr.send();
+
+  let queryObject = { 'query': query };
+
+  xhr.send(encodeURIComponent(btoa(JSON.stringify(queryObject))));
 }
 
 function getSelectedEntries()

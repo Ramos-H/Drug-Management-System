@@ -23,7 +23,7 @@
         <li class="nav-item" role="presentation">
           <button class="nav-link" id="reports-tab" data-bs-toggle="tab" data-bs-target="#reports" type="button" role="tab" aria-controls="reports" aria-selected="false">Reports</button>
         </li>
-        <div class="d-flex flex-row align-items-center justify-content-end ms-auto mx-4 my-1">
+        <div class="d-flex flex-row align-items-center justify-content-end ms-auto my-1">
           <a class="btn btn-primary">Log out</a>
         </div>
       </ul>
@@ -34,6 +34,9 @@
       <div class="tab-content">
         <!-- Home tab -->
         <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+          <div class="mx-4">
+            <input type="text" id="searchBar" class="form-control" placeholder="Enter your search term here..." oninput="loadMainTable(this.value)">
+          </div>
           <div class="d-flex flew-row py-2 gap-2">
             <button type="button" class="btn btn-primary" id="selectBtn" onclick="toggleMassSelect()">Select all</button>
             <button type="button" class="btn btn-primary" onclick="showAddModal()">Add</button>
