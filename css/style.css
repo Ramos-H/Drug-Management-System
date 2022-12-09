@@ -1,5 +1,17 @@
-ion-icon {
-    font-size: 20px;
+@font-face {
+  font-family: "Open Sauce Light";
+  src: local('OpenSauceSans-Light'), 
+        url('../assets/fonts/OpenSauceSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Open Sauce SemiBold";
+  src: local('OpenSauceSans-SemiBold'), url('../assets/fonts/OpenSauceSans-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "Tenor Sans";
+  src: local('TenorSans-Regular'), url('../assets/fonts/TenorSans-Regular.ttf') format('truetype');
 }
 
 .navbar{
@@ -34,6 +46,7 @@ ion-icon {
 
 body{
     background-color: #D8EEFD;
+    font-family:"Open Sauce Light"
 }
 
 .btn{
@@ -73,12 +86,6 @@ body{
     border-width: 0px;
 }
 
-#deleteBtn{
-    padding: 5px 10px;
-    background-color:#FF1616;
-    border-width: 0px;
-}
-
 #addBtn{
     padding: 5px 35px;
     margin-left: 10px;
@@ -92,18 +99,6 @@ body{
     border-width: 0px;
 }
 
-.container-fluid{
-    max-width: 25rem;
-}
-
-.table {
-    width: auto;
-    float: left;
-    text-align: center;
-    border-collapse: separate;
-    border-spacing: 10px;
-}
-
 #tableData{
     background-color:#f1cd3b;
 }
@@ -114,4 +109,12 @@ body{
 
 #genericName{
     background-color: #f1cd3b;
+}
+
+h1 {
+  font-family:"Open Sauce SemiBold"
+}
+
+h2, h3, h4, h5, h6, th {
+  font-family:"Tenor Sans"
 }

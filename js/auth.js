@@ -16,6 +16,8 @@ function authRedirect()
       if (response.status === 'SUCCESS')
       {
         document.body.innerHTML = body;
+        document.body.classList.remove('d-none');
+        document.body.onload();
       }
       else
       {
