@@ -128,6 +128,7 @@ function requestRegister()
 function loadAllData()
 {
   loadMainTable();
+  loadReportDate();
   loadDrugExpireReport();
   loadLowDrugReport();
   loadDrugTypeReport();
@@ -958,6 +959,17 @@ function printReport()
   document.body.innerHTML = main.innerHTML;
   print();
   document.body.innerHTML = original;
+}
+
+function loadReportDate()
+{
+  let date = new Date();
+  let day = String(date.getDate()).padStart(2, '0');
+  let month = String(date.getMonth() + 1).padStart(2, '0');
+  let year = date.getFullYear();
+
+  let today = `REPORT DATE | Year: ${year} | Month: ${month} | Day: ${day}`;
+  document.getElementById('date-string').innerText = today;
 }
 
 // UTILITIES
