@@ -1,4 +1,4 @@
-const LOAD_DELAY = 3;
+const LOAD_DELAY = 1;
 
 // REGISTER and LOGIN
 function requestLogin()
@@ -135,107 +135,111 @@ function loadAllData()
   loadInventoryReport();
 }
 
+let delayTimer;
 function loadMainTable(query = '')
 {
-  const xhr = new XMLHttpRequest();
-  xhr.open("POST", '../php/main_table.php', true);
-  
-  //Send the proper header information along with the request
-  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-  
-  xhr.onreadystatechange = () => { // Call a function when the state changes.
-    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
-    {
-      let table = JSON.parse(atob(xhr.responseText));
-      let main_table = document.getElementById('main_table');
-      if (table.length < 1)
+  clearTimeout(delayTimer);
+  delayTimer = setTimeout(() => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", '../php/main_table.php', true);
+    
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xhr.onreadystatechange = () => { // Call a function when the state changes.
+      if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200)
       {
-        showEmptyTableMessage(main_table);
-        return;
-      }
-
-      setTableStatusVisibility(main_table, false);
-      for (const entry of table)
-      {
-        let row = document.createElement('tr');
-        let inv_no = entry['INV_NO'];
-        row.setAttribute('onclick', `showViewModal(${inv_no})`);
-
-        // Add checkbox
-        let checkbox = document.createElement('input');
-        checkbox.setAttribute('type', 'checkbox');
-        checkbox.setAttribute('id', inv_no);
-        checkbox.setAttribute('onclick', 'setMultiOperationButtonsState(event)');
-        let checkboxCell = document.createElement('td');
-        checkboxCell.appendChild(checkbox);
-        row.appendChild(checkboxCell);
-
-        // Add all property values
-        for (let key in entry)
+        let table = JSON.parse(atob(xhr.responseText));
+        let main_table = document.getElementById('main_table');
+        if (table.length < 1)
         {
-          if (Object.hasOwnProperty.call(entry, key))
-          {
-            let value = entry[key];
-
-            if (key === 'INV_NO') { continue; }
-
-            let column = document.createElement('td');
-            if (key === 'DRUG_NAME_GEN')
-            {
-              column.classList.add('text-start');
-            }
-            
-            let valueText = null;
-            if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
-            {
-              valueText = document.createTextNode(value.split(' ')[0]);
-            }
-            else
-            {
-              valueText = document.createTextNode(value);
-            }
-
-            column.appendChild(valueText);
-
-            row.appendChild(column);
-          }
+          showEmptyTableMessage(main_table);
+          return;
         }
 
-        // Create operation buttons
-        let btnGroup = document.createElement('div');
-        btnGroup.classList.add('btn-group');
+        setTableStatusVisibility(main_table, false);
+        for (const entry of table)
+        {
+          let row = document.createElement('tr');
+          let inv_no = entry['INV_NO'];
+          row.setAttribute('onclick', `showViewModal(${inv_no})`);
 
-        let updateButton = document.createElement('button');
-        updateButton.appendChild(document.createTextNode('Update'));
-        updateButton.setAttribute('type', 'button');
-        updateButton.setAttribute('onclick', `showEditModal(event, ${inv_no})`);
-        updateButton.classList.add('btn', 'btn-primary');
-        
-        let deleteButton = document.createElement('button');
-        deleteButton.appendChild(document.createTextNode('Delete'));
-        deleteButton.setAttribute('onclick', `showDeleteSanityModal(event, [${inv_no}])`);
-        deleteButton.setAttribute('type', 'button');
-        deleteButton.classList.add('btn', 'btn-danger');
+          // Add checkbox
+          let checkbox = document.createElement('input');
+          checkbox.setAttribute('type', 'checkbox');
+          checkbox.setAttribute('id', inv_no);
+          checkbox.setAttribute('onclick', 'setMultiOperationButtonsState(event)');
+          let checkboxCell = document.createElement('td');
+          checkboxCell.appendChild(checkbox);
+          row.appendChild(checkboxCell);
 
-        btnGroup.appendChild(updateButton);
-        btnGroup.appendChild(deleteButton);
+          // Add all property values
+          for (let key in entry)
+          {
+            if (Object.hasOwnProperty.call(entry, key))
+            {
+              let value = entry[key];
 
-        let btnGroupCell = document.createElement('td');
-        btnGroupCell.appendChild(btnGroup);
+              if (key === 'INV_NO') { continue; }
 
-        row.appendChild(btnGroupCell);
+              let column = document.createElement('td');
+              if (key === 'DRUG_NAME_GEN')
+              {
+                column.classList.add('text-start');
+              }
+              
+              let valueText = null;
+              if (key === 'DRUG_DATE_MAN' || key === 'DRUG_DATE_ORDER' || key === 'DRUG_DATE_EXP')
+              {
+                valueText = document.createTextNode(value.split(' ')[0]);
+              }
+              else
+              {
+                valueText = document.createTextNode(value);
+              }
 
-        // Append row to table
-        main_table.appendChild(row);
+              column.appendChild(valueText);
+
+              row.appendChild(column);
+            }
+          }
+
+          // Create operation buttons
+          let btnGroup = document.createElement('div');
+          btnGroup.classList.add('btn-group');
+
+          let updateButton = document.createElement('button');
+          updateButton.appendChild(document.createTextNode('Update'));
+          updateButton.setAttribute('type', 'button');
+          updateButton.setAttribute('onclick', `showEditModal(event, ${inv_no})`);
+          updateButton.classList.add('btn', 'btn-primary');
+          
+          let deleteButton = document.createElement('button');
+          deleteButton.appendChild(document.createTextNode('Delete'));
+          deleteButton.setAttribute('onclick', `showDeleteSanityModal(event, [${inv_no}])`);
+          deleteButton.setAttribute('type', 'button');
+          deleteButton.classList.add('btn', 'btn-danger');
+
+          btnGroup.appendChild(updateButton);
+          btnGroup.appendChild(deleteButton);
+
+          let btnGroupCell = document.createElement('td');
+          btnGroupCell.appendChild(btnGroup);
+
+          row.appendChild(btnGroupCell);
+
+          // Append row to table
+          main_table.appendChild(row);
+        }
       }
     }
-  }
 
-  let queryObject = { 'query': query };
-  xhr.send(encodeURIComponent(btoa(JSON.stringify(queryObject))));
+    let queryObject = { 'query': query };
+    xhr.send(encodeURIComponent(btoa(JSON.stringify(queryObject))));
 
-  clearTable(main_table);
-  showTableLoading(main_table);
+    clearTable(main_table);
+    showTableLoading(main_table);
+  }, 1000 * LOAD_DELAY);
 }
 
 function getSelectedEntries()
