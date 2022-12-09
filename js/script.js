@@ -1,3 +1,5 @@
+const LOAD_DELAY = 3;
+
 // REGISTER and LOGIN
 function requestLogin()
 {
@@ -146,9 +148,6 @@ function loadMainTable(query = '')
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('main_table');
-      clearTable(main_table);
-      showTableLoading(main_table);
-
       if (table.length < 1)
       {
         showEmptyTableMessage(main_table);
@@ -233,8 +232,10 @@ function loadMainTable(query = '')
   }
 
   let queryObject = { 'query': query };
-
   xhr.send(encodeURIComponent(btoa(JSON.stringify(queryObject))));
+
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 function getSelectedEntries()
@@ -666,8 +667,6 @@ function loadManufacturerReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_manufacturer');
-      clearTable(main_table);
-      showTableLoading(main_table);
 
       if (table.length < 1)
       {
@@ -706,6 +705,8 @@ function loadManufacturerReport()
   }
 
   xhr.send();
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 function loadDrugTypeReport()
@@ -721,8 +722,6 @@ function loadDrugTypeReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_type');
-      clearTable(main_table);
-      showTableLoading(main_table);
 
       if (table.length < 1)
       {
@@ -760,6 +759,8 @@ function loadDrugTypeReport()
   }
 
   xhr.send();
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 function loadInventoryReport()
@@ -775,8 +776,6 @@ function loadInventoryReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_inventory');
-      clearTable(main_table);
-      showTableLoading(main_table);
 
       if (table.length < 1)
       {
@@ -833,6 +832,8 @@ function loadInventoryReport()
     }
   }
   xhr.send();
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 function loadLowDrugReport()
@@ -848,8 +849,6 @@ function loadLowDrugReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_low');
-      clearTable(main_table);
-      showTableLoading(main_table);
 
       if (table.length < 1)
       {
@@ -883,6 +882,8 @@ function loadLowDrugReport()
   }
 
   xhr.send();
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 function loadDrugExpireReport()
@@ -898,8 +899,6 @@ function loadDrugExpireReport()
     {
       let table = JSON.parse(atob(xhr.responseText));
       let main_table = document.getElementById('report_drug_expire');
-      clearTable(main_table);
-      showTableLoading(main_table);
 
       if (table.length < 1)
       {
@@ -942,6 +941,8 @@ function loadDrugExpireReport()
   }
 
   xhr.send();
+  clearTable(main_table);
+  showTableLoading(main_table);
 }
 
 // UTILITIES
@@ -984,6 +985,7 @@ function showTableLoading(table)
   setTableStatusVisibility(table, true);
   table.getElementsByClassName('load_indicator')[0].classList.remove('d-none');
   table.getElementsByClassName('empty_results_message')[0].classList.add('d-none');
+
 }
 
 function showEmptyTableMessage(table)
