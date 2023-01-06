@@ -1,5 +1,5 @@
 # Drug-Management-System
-ParaEase'O is a drug management system. It was made as a second-year university project. ***It is not being used commercially and was made as a student project only.***
+A sample drug management system. It was made as a second-year university project. ***It is not being used commercially and was made as a student project only.***
 
 ## Status
 It is not being maintained anymore as project development period has ended.
